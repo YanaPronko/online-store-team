@@ -1,4 +1,8 @@
-/*   Обнуление */
+@import "constants";
+@import "mixins";
+@import "placeholder";
+
+  // Обнуление
 * {
 	padding: 0;
 	margin: 0;
@@ -70,4 +74,66 @@ html {
 body {
 	@extend %font-primary;
   @include font($size: 1.6rem, $height: 130%);
+	display: flex;
+  flex-direction: column;
+	color: $color-text;
+	scroll-behavior: smooth;
+	background: $color-primary-light;
+}
+body::-webkit-scrollbar {
+	width: 8px;
+  border-radius: 5px;
+  background-color: $color-background-secondary;
+  cursor: pointer;
+}
+body::-webkit-scrollbar-thumb {
+	background-color: $color-primary;
+  border-radius: 8px;
+  padding: 20px 0;
+  cursor: pointer;
+}
+
+.main-content {
+  flex: 1 1 auto;
+}
+
+.container {
+  max-width: $content-width;
+  margin: 0 auto;
+  padding: 0 20px;
+	@include min-media-desktop {
+		max-width: 1500px;
+	}
+  @include max-media-small-desktop {
+    max-width: 1000px;
+  }
+
+  @include max-media-tablet {
+    max-width: 740px;
+    padding: 0 20px;
+  }
+  @include max-media-mobile {
+    max-width: 500px;
+    padding: 0 10px;
+  }
+}
+.wrapper {
+	display: flex;
+	width: 100%;
+	padding: 30px 0;
+}
+.link {
+	@extend %transition;
+	@include font(2.5rem, 120%);
+	color: $color-primary-light;
+}
+.title {
+  @include font(4rem, 140%, 700);
+  color: $color-primary-light;
+	text-transform: uppercase;
+  text-align: center;
+	letter-spacing: 0.1rem;
+	@include min-media-desktop {
+		 @include font(7rem, 140%, 700);
+	}
 }

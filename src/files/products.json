@@ -20,8 +20,8 @@
         "price": 692,
         "rating": 3.9,
         "stock": 18,
-        "brand": "Tech Team",
-        "category": "велосипед детский",
+        "brand": "KUPI_LA",
+        "category": "велосипед",
         "thumbnail": "../assets/images/list/main/2.jpg",
         "images": ["../assets/images/list/mini/2.1.jpg", "../assets/images/list/mini/2.2.jpg"]
       },
@@ -44,7 +44,7 @@
         "price": 907,
         "rating": 4.4,
         "stock": 24,
-        "brand": "STELS",
+        "brand": "TELSS",
         "category": "велосипед",
         "thumbnail": "../assets/images/list/main/4.jpg",
         "images": ["../assets/images/list/mini/4.1.jpg", "../assets/images/list/mini/4.2.jpg"]
