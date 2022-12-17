@@ -1,0 +1,18 @@
+@import 'constants';
+@import 'mixins';
+@import 'placeholder';
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &__img {
+    @extend %transition;
+    width: 80px;
+    height: 80px;
+    @include min-media-desktop {
+      width: 100px;
+      height: 100px;
+    }
+  }
+}
