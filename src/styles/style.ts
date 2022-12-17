@@ -1,4 +1,3 @@
-import './reset.scss';
 import './constants.scss';
 import './mixins.scss';
 import './placeholder.scss';
