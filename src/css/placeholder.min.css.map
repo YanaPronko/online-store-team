@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "../styles/placeholder.scss"
+    ],
+    "names": [],
+    "file": "placeholder.min.css"
+}
