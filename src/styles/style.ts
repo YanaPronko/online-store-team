@@ -1,5 +1,5 @@
+import './reset.scss';
 import './constants.scss';
-import './fonts.scss';
 import './mixins.scss';
 import './placeholder.scss';
 import './base.scss';

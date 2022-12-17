@@ -1,6 +1,7 @@
-@import "constants";
-@import "mixins";
-@import "placeholder";
+@import 'reset';
+@import 'constants';
+@import 'mixins';
+@import 'placeholder';
 
 .logo {
   display: flex;
