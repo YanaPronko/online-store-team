@@ -3,8 +3,8 @@
 @import "placeholder";
 
 .catalog__wrapper {
-  max-width: 70%;
-  padding: 0.5%;
+  max-width: 73%;
+  padding: 0.5% 1%;
 }
 
 .sort__wrapper {
@@ -35,16 +35,17 @@
   padding: 10px 0;
   flex-wrap: wrap;
   row-gap: 25px;
-  column-gap: 3%;
-  overflow-y: scroll;
+  column-gap: 2%;
+  // overflow-y: scroll;
 }
 .good {
   &__card {
-    width: 22%;
+    width: 23%;
     padding: 0.5%;
     display: flex;
     flex-direction: column;
     gap: 15px;
+    box-shadow: 0 0 2px $color-primary;
   }
   &__img {
     display: block;
@@ -60,6 +61,7 @@
     @extend %transition;
     width: 100%;
     font-weight: 600;
+    word-wrap: break-word;
     &:hover {
       color: darken($color-text, 50%);
       cursor: pointer;
@@ -85,9 +87,4 @@
 .add-btn {
   width: 150px;
   height: 50px;
-  border-radius: 8px;
-  background-color: $color-primary-additional;
-  border: 1px solid $color-primary-additional;
-  color: $color-primary-light;
-  font-weight: 700;
 }

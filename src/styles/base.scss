@@ -137,3 +137,20 @@ body::-webkit-scrollbar-thumb {
 		 @include font(7rem, 140%, 700);
 	}
 }
+.btn {
+	@extend %transition;
+	border-radius: 8px;
+  background-color: $color-primary-additional;
+  border: 1px solid $color-primary-additional;
+  color: $color-primary-light;
+  font-weight: 700;
+
+	&:hover {
+		background-color: darken($color-primary-additional, 5%);
+		border: 1px solid darken($color-primary-additional, 5%);
+		}
+}
+
+.ico {
+	cursor: pointer;
+}
