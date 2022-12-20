@@ -71,26 +71,6 @@ module.exports = {
         },
       });
     }),
-   /*  new HtmlWebpackPlugin({
-      template: 'src/index.html',
-      filename: 'index.html',
-      minify: {
-        collapseWhitespace: true,
-        removeComments: true,
-        removeRedundantAttributes: true,
-        useShortDoctype: true,
-      },
-    }),
-      new HtmlWebpackPlugin({
-      template: 'src/product.html',
-      filename: 'product.html',
-      minify: {
-        collapseWhitespace: true,
-        removeComments: true,
-        removeRedundantAttributes: true,
-        useShortDoctype: true,
-      },
-    }), */
     new MiniCssExtractPlugin({
       filename: 'style-[hash].css',
     }),
