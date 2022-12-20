@@ -9,8 +9,6 @@ export const initProductSlider = () => {
 	const sliderNavItems = document.querySelectorAll('.slider-nav__item');
 	sliderNavItems.forEach((el: Element, index: number) => {
     el.setAttribute('data-index', `${index}`);
-    // el.classList.remove("slider-border");
-
     el.addEventListener('click', (e: Event) => {
       sliderNavItems.forEach(el => el.classList.remove("slider-border"));
       const target = e.currentTarget;
