@@ -8,6 +8,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 
+const pages = ["index.html", "product.html", "cart.html"];
+
 module.exports = {
   target: 'web',
   // entry: './src/main.tsx',
@@ -57,25 +59,17 @@ module.exports = {
         },
       ],
     }),
-    new HtmlWebpackPlugin({
-      template: 'src/index.html',
-      filename: 'index.html',
-      minify: {
-        collapseWhitespace: true,
-        removeComments: true,
-        removeRedundantAttributes: true,
-        useShortDoctype: true,
-      },
-    }),
-      new HtmlWebpackPlugin({
-      template: 'src/product.html',
-      filename: 'product.html',
-      minify: {
-        collapseWhitespace: true,
-        removeComments: true,
-        removeRedundantAttributes: true,
-        useShortDoctype: true,
-      },
+    ...pages.map((item) => {
+     return new HtmlWebpackPlugin({
+        template: `src/${item}`,
+        filename: `${item}`,
+        minify: {
+          collapseWhitespace: true,
+          removeComments: true,
+          removeRedundantAttributes: true,
+          useShortDoctype: true,
+        },
+      });
     }),
     new MiniCssExtractPlugin({
       filename: 'style-[hash].css',
