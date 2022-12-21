@@ -1,8 +1,18 @@
 import "./styles/style";
 import { initProductSlider } from "./modules/productSlider";
-import { initPriceSlider } from "./modules/priceSlider";
+import { initFilterSlider } from "./modules/priceSlider";
+
 
 document.addEventListener("DOMContentLoaded", () => {
   initProductSlider();
-  initPriceSlider();
+  initFilterSlider({
+    sliderRangeSel: '.price__range-input input',
+    sliderInputSel: '.price-input input',
+    sliderProgressSel: '.price-slider .progress',
+  });
+  initFilterSlider({
+    sliderRangeSel: '.stock__range-input input',
+    sliderInputSel: '.stock-input input',
+    sliderProgressSel: '.stock-slider .progress',
+  });
 });

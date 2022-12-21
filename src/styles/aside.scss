@@ -104,13 +104,15 @@ input[type="number"]::-webkit-inner-spin-button {
   align-items: center;
   justify-content: center;
 }
-.slider {
+.price-slider,
+.stock-slider {
   height: 5px;
   position: relative;
   background: #ddd;
   border-radius: 5px;
 }
-.slider .progress {
+.price-slider .progress,
+.stock-slider .progress {
   height: 100%;
   left: 25%;
   right: 25%;

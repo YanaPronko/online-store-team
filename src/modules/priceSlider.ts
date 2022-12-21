@@ -1,27 +1,32 @@
-export const initPriceSlider = () => {
-  const rangeInput = document.querySelectorAll<HTMLInputElement>('.price__range-input input'),
-    priceInput = document.querySelectorAll<HTMLInputElement>('.price-input input'),
-    range = document.querySelector<HTMLElement>('.slider .progress');
+type SliderSelectors = {
+  sliderRangeSel: string;
+  sliderInputSel: string;
+  sliderProgressSel: string;
+};
+export const initFilterSlider = ({ sliderRangeSel, sliderInputSel, sliderProgressSel }: SliderSelectors) => {
+  const rangeInput = document.querySelectorAll<HTMLInputElement>(sliderRangeSel),
+    valueInput = document.querySelectorAll<HTMLInputElement>(sliderInputSel),
+    range = document.querySelector<HTMLElement>(sliderProgressSel);
 
-  const priceGap = 1000;
+  const valueGap = 1000;
 
-  priceInput.forEach((input) => {
+  valueInput.forEach((input) => {
     input.addEventListener('input', (e) => {
       const target = e.target;
-      const minPrice = parseInt(priceInput[0].value),
-        maxPrice = parseInt(priceInput[1].value);
+      const minValue = parseInt(valueInput[0].value),
+        maxValue = parseInt(valueInput[1].value);
 
-      if (maxPrice - minPrice >= priceGap && maxPrice <= +rangeInput[1].max) {
+      if (maxValue - minValue >= valueGap && maxValue <= +rangeInput[1].max) {
         if (target && target instanceof HTMLInputElement
           && target.className === 'input-min') {
-          rangeInput[0].value = `${minPrice}`;
+          rangeInput[0].value = `${minValue}`;
           if (range) {
-            range.style.left = (minPrice / +rangeInput[0].max) * 100 + '%';
+            range.style.left = (minValue / +rangeInput[0].max) * 100 + '%';
           }
         } else {
-          rangeInput[1].value = `${maxPrice}`;
+          rangeInput[1].value = `${maxValue}`;
           if (range) {
-            range.style.right = 100 - (maxPrice / +rangeInput[1].max) * 100 + '%';
+            range.style.right = 100 - (maxValue / +rangeInput[1].max) * 100 + '%';
           }
         }
       }
@@ -34,16 +39,16 @@ export const initPriceSlider = () => {
       const minVal = parseInt(rangeInput[0].value),
         maxVal = parseInt(rangeInput[1].value);
 
-      if (maxVal - minVal < priceGap) {
+      if (maxVal - minVal < valueGap) {
         if (target && target instanceof HTMLInputElement
           && target.className === 'range-min') {
-          rangeInput[0].value = `${maxVal - priceGap}`;
+          rangeInput[0].value = `${maxVal - valueGap}`;
         } else {
-          rangeInput[1].value = `${minVal + priceGap}`;
+          rangeInput[1].value = `${minVal + valueGap}`;
         }
       } else {
-        priceInput[0].value = `${minVal}`;
-        priceInput[1].value = `${maxVal}`;
+        valueInput[0].value = `${minVal}`;
+        valueInput[1].value = `${maxVal}`;
         if (range) {
           range.style.left = (minVal / +rangeInput[0].max) * 100 + '%';
           range.style.right = 100 - (maxVal / +rangeInput[1].max) * 100 + '%';
