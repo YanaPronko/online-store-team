@@ -8,4 +8,6 @@ import './aside.scss';
 import './catalog.scss';
 import './productPage.scss';
 import './cart.scss';
+import './modal.scss';
+import './card.scss';
 import './footer.scss';
