@@ -1,6 +1,8 @@
 import "./styles/style";
 import { initProductSlider } from "./modules/productSlider";
 import { initFilterSlider } from "./modules/priceSlider";
+import modal from './modules/modal';
+
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -15,4 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
     sliderInputSel: '.stock-input input',
     sliderProgressSel: '.stock-slider .progress',
   });
+  modal();
+  
 });
