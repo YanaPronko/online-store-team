@@ -9,5 +9,5 @@ import './catalog.scss';
 import './productPage.scss';
 import './cart.scss';
 import './modal.scss';
-import './card.scss';
+import './bankCard.scss';
 import './footer.scss';
