@@ -40,14 +40,41 @@ export function createProductCart(productData :productData) :string {
 
 export function renderProducts(params? : string) : void {
   const productsWrapepr = document.querySelector('.goods__wrapper') 
-  if(productsWrapepr) productsWrapepr.innerHTML = '' 
-  if(params) {
-    return
-  } else {   
-    Object.values(PRODUCTS).forEach((product) => {
-      const productCart = createProductCart(product)      
-      if(productsWrapepr) productsWrapepr.innerHTML += productCart
-    })   
+  if(productsWrapepr) {
+    productsWrapepr.innerHTML = '' 
+    if(params) {
+      return
+    } else {   
+      Object.values(PRODUCTS).forEach((product) => {
+        const productCart = createProductCart(product)      
+        if(productsWrapepr) productsWrapepr.innerHTML += productCart
+      })   
+    }
+    productsWrapepr.addEventListener('click', onProductHandler)
   }
+
 }
 
+function onProductHandler(e:Event) {
+  console.log(e.target)
+  if(e.target) {
+    if((e.target as HTMLElement).tagName == 'BUTTON' ) {
+      const id = (e.target as HTMLElement).getAttribute('data-id')
+      addToProductToStorage( id as string)
+    }
+  }
+
+}
+
+function addToProductToStorage(id:string) {
+  if (localStorage.getItem('cart') === null) {
+    const cart:string[] = []
+    cart.push(id)
+    localStorage.setItem('cart', JSON.stringify(cart))
+  } 
+  if(localStorage.getItem('cart') !== null) {
+    const cart  = JSON.parse((localStorage.getItem("cart") as string))
+    cart.push(id)
+    localStorage.setItem('cart', JSON.stringify(cart))
+  }
+}
