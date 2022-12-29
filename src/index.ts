@@ -1,7 +1,8 @@
 import "./styles/style";
 import { initProductSlider } from "./modules/productSlider";
 import { initFilterSlider } from "./modules/priceSlider";
-import modal from './modules/modal';
+import "./modules/router"
+// import modal from './modules/modal';
 
 
 
@@ -16,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     sliderRangeSel: '.stock__range-input input',
     sliderInputSel: '.stock-input input',
     sliderProgressSel: '.stock-slider .progress',
-  });
-  modal();
+  });  
+  // modal();
   
 });
