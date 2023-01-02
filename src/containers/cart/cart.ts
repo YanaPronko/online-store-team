@@ -2,6 +2,8 @@ import { PRODUCTS } from "../product/product";
 import { productData, item } from "../product/product";
 import modal from "../../modules/modal";
 import { deleteProductFromCart } from "../../modules/deleteGoods";
+import { changeQuantity } from '../../modules/changeQuantity';
+
 
 
 export type count = {
