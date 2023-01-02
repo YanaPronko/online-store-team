@@ -1,5 +1,5 @@
 import { renderProducts } from "../containers/product/product";
-
+import { renderCart } from "../containers/cart/cart";
 type pageObject = {
   template: string,
   title: string,
@@ -9,24 +9,24 @@ type pageObject = {
 type urlObject = {
   [key: number]: pageObject,
   [key: string]: pageObject ,
- 
+
 }
 
 const _urlROutes: urlObject = {
   404: {
     template: '/404.html',
     render: renderProducts,
-    title:'error',   
+    title:'error',
   },
   "/": {
     template: '/main.html',
     render: renderProducts,
-    title:"Main",   
+    title:"Main",
   },
   "/cart": {
-    template: '/cart.html',  
-    render: renderProducts,
-    title:"cart",   
+    template: '/cart.html',
+    render: renderCart,
+    title:"cart",
   },
 }
 
@@ -34,9 +34,9 @@ document.querySelectorAll('.rout-link').forEach(element => {
   element.addEventListener('click', linkHandler )
 });
 
-function linkHandler (e:Event) {   
-  e.preventDefault()   
-  console.log(e.currentTarget)  
+function linkHandler (e:Event) {
+  e.preventDefault()
+  // console.log(e.currentTarget)
   urlRoute(e);
  }
 
@@ -49,7 +49,7 @@ const urlRoute = (event:Event) => {
   urlLocationHandler();
 }
 
-const urlLocationHandler = async () => {   
+const urlLocationHandler = async () => {
   let location:string = window.location.pathname;
   if(location.length == 0) {
     location = '/'
