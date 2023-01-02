@@ -2,6 +2,7 @@ import { PRODUCTS } from "../product/product";
 import { productData, item } from "../product/product";
 import modal from "../../modules/modal";
 import { deleteProductFromCart } from "../../modules/deleteGoods";
+import { countPrice } from '../../modules/countFinalPrice';
 import { changeQuantity } from '../../modules/changeQuantity';
 
 
@@ -28,6 +29,7 @@ export function renderCart(): void {
       }
     }
     renderCartWithGoods(goodsInCart);
+    changeQuantity();
   }
 }
 
