@@ -1,6 +1,7 @@
 import { PRODUCTS } from "../product/product";
 import { productData, item } from "../product/product";
 import modal from "../../modules/modal";
+import { deleteProductFromCart } from "../../modules/deleteGoods";
 
 
 export type count = {
@@ -28,7 +29,6 @@ export function renderCart(): void {
   }
 }
 
-
 function renderEmptyCart(): void {
   const emptyCart = createEmptyCart();
   const wrapper = document.querySelector('.wrapper');
@@ -45,6 +45,11 @@ function renderCartWithGoods(arrayOfGoods: goodInCart[]): void {
     wrapper.innerHTML = '';
     wrapper.append(cart);
   }
+  const deleteBtns = document.querySelectorAll<HTMLButtonElement>('.delete-btn');
+  deleteBtns.forEach((item) => {
+    item.addEventListener('click', deleteProductFromCart);
+  });
+
   const buyBtn = document.querySelector('.buy-now');
   if (buyBtn) {
     buyBtn.addEventListener('click', () => modal());
