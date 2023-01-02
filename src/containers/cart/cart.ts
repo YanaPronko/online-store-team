@@ -3,31 +3,34 @@ import { productData, item } from "../product/product";
 import modal from "../../modules/modal";
 import { deleteProductFromCart } from "../../modules/deleteGoods";
 import { countPrice } from '../../modules/countFinalPrice';
+import { countTotalGoods } from "../../modules/totalQuantity";
 import { changeQuantity } from '../../modules/changeQuantity';
-
-
 
 export type count = {
   count: number;
 }
 
-export type goodInCart = productData & count ;
+export type goodInCart = productData & count;
+
+function createGoodsInCart(goodsID: item[]) {
+  const goodsInCart: goodInCart[] = [];
+  for (let i = 0; i < goodsID.length; i++) {
+    const item = PRODUCTS.find((good) => good.id === +goodsID[i].id);
+    const count = +goodsID[i].count;
+    if (item) {
+      const good: goodInCart = { ...item, count };
+      goodsInCart.push(good);
+    }
+  }
+  return goodsInCart;
+}
 
 export function renderCart(): void {
   const goodsID: item[] = JSON.parse(localStorage.getItem('cart') as string);
-  const goodsInCart: goodInCart[] = [];
-
   if (!goodsID || goodsID.length === 0) {
     renderEmptyCart();
   } else {
-    for (let i = 0; i < goodsID.length; i++) {
-      const item = PRODUCTS.find((good) => good.id === +goodsID[i].id);
-      const count = +goodsID[i].count;
-      if (item) {
-        const good: goodInCart = { ...item, count };
-        goodsInCart.push(good);
-      }
-    }
+    const goodsInCart = createGoodsInCart(goodsID);
     renderCartWithGoods(goodsInCart);
     changeQuantity();
   }
@@ -60,7 +63,6 @@ function renderCartWithGoods(arrayOfGoods: goodInCart[]): void {
   }
 }
 
-
 function createEmptyCart(): HTMLDivElement {
   const cartBody = document.createElement('div');
   cartBody.classList.add('section-cart__body');
@@ -90,7 +92,10 @@ function createCart(goodsInCart: goodInCart[]): HTMLDivElement {
     const product = createProductSection(item);
     mainCartSection.append(product);
   });
-  const footer = createCartFooter(goodsInCart);
+
+  const sum = countPrice(goodsInCart);
+  const quantity = countTotalGoods(goodsInCart);
+  const footer = createCartFooter(sum, quantity);
   mainCartSection.innerHTML += footer;
   cartBody.append(mainCartSection);
   return cartBody;
@@ -138,7 +143,8 @@ function createDeleteBtns(product: goodInCart): HTMLDivElement {
   return productControls;
 }
 
-function createCartFooter(goodsInCart: goodInCart[]): string {
+export function createCartFooter(sum:number, quantity: number): string {
+
    return `
     <footer class="cart-footer flex_col">
       <div class="cart-footer__summary grid">
@@ -156,10 +162,10 @@ function createCartFooter(goodsInCart: goodInCart[]): string {
           <span class="material-icons">arrow_forward_ios</span>
         </button>
       </div>
-      <div class="cart-footer__count">Количество товаров: ${goodsInCart.length}</div>
+      <div class="cart-footer__count">Количество товаров: ${quantity}</div>
       <div class="cart-footer__price flex_col">
         <span class="old__price">600 000 BYN</span>
-        <span class="current__price">0 BYN.</span>
+        <span class="current__price">${sum} BYN</span>
       </div>
       </div>
       <div class="cart-footer__promo">

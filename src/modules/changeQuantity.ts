@@ -1,4 +1,5 @@
 import { item } from '../containers/product/product';
+import { renderCart } from '../containers/cart/cart';
 
 export const changeQuantity = () => {
   const goodsID: item[] = JSON.parse(localStorage.getItem('cart') as string);
@@ -14,6 +15,7 @@ export const changeQuantity = () => {
       if (downBtn) {
         // decreaseQuantity(e, /* goodsID */);
       }
+      renderCart();
     });
 };
 
@@ -25,5 +27,6 @@ function increaseQuantity(e: Event, goods: item[]) {
     const countSpan = parent.querySelector<HTMLElement>('.count__span');
     if (countSpan) countSpan.textContent = `${++goods[ind].count}`;
     localStorage.setItem('cart', JSON.stringify(goods));
+
   }
 }
