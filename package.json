@@ -54,6 +54,7 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
+    "just-validate": "^3.10.0",
     "sass": "^1.56.1",
     "swiper": "^8.4.5"
   }
