@@ -4,7 +4,6 @@ import { initFilterSlider } from "./modules/priceSlider";
 import "./modules/router";
 import './containers/cart/cart';
 
-
 document.addEventListener("DOMContentLoaded", () => {
   initProductSlider();
   initFilterSlider({
