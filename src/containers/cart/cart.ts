@@ -4,7 +4,7 @@ import modal from "../../modules/modal";
 import { deleteProductFromCart } from "../../modules/deleteGoods";
 import { countPrice } from '../../modules/countFinalPrice';
 import { countTotalGoods } from "../../modules/totalQuantity";
-// import { changeQuantity } from '../../modules/changeQuantity';
+import { changeQuantity } from '../../modules/changeQuantity';
 import { parseStorage } from "../../modules/updateStorage";
 
 export type count = {
@@ -33,7 +33,7 @@ export function renderCart(): void {
   } else {
     const goodsInCart = createGoodsInCart(goodsID);
     renderCartWithGoods(goodsInCart);
-    // changeQuantity();
+    changeQuantity();
   }
 }
 
@@ -112,11 +112,13 @@ function createCart(goodsInCart: goodInCart[]): HTMLDivElement {
       <div class="cart-header__cost">стоимость</div>
     </header>
   `;
+  const gridContainer = document.createElement('div');
+  gridContainer.classList.add('grid__container');
   goodsInCart.forEach((item) => {
     const product = createProductSection(item);
-    mainCartSection.append(product);
+    gridContainer.append(product);
   });
-
+  mainCartSection.append(gridContainer);
   const sum = countPrice(goodsInCart);
   const quantity = countTotalGoods(goodsInCart);
   const footer = createCartFooter(sum, quantity);
