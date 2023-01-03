@@ -59,7 +59,7 @@ function renderCartWithGoods(arrayOfGoods: goodInCart[]): void {
 
   const buyBtn = document.querySelector('.buy-now');
   if (buyBtn) {
-    buyBtn.addEventListener('click', () => modal());
+    buyBtn.addEventListener('click', modal);
   }
 }
 
@@ -144,7 +144,6 @@ function createDeleteBtns(product: goodInCart): HTMLDivElement {
 }
 
 export function createCartFooter(sum:number, quantity: number): string {
-
    return `
     <footer class="cart-footer flex_col">
       <div class="cart-footer__summary grid">
@@ -195,7 +194,3 @@ export function createCartFooter(sum:number, quantity: number): string {
     </footer>
   `;
 }
-
-
-
-
