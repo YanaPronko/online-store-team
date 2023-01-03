@@ -11,6 +11,8 @@ export const changeQuantity = () => {
       const target = e.target as HTMLElement;
       const upBtn = target.closest('.count__up');
       const downBtn = target.closest('.count__down');
+      if (!upBtn && !downBtn) return;
+
       if (upBtn) {
         increaseQuantity(e, goodsID);
       }

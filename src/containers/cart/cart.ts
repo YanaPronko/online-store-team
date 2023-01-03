@@ -6,6 +6,7 @@ import { countPrice } from '../../modules/countFinalPrice';
 import { countTotalGoods } from "../../modules/totalQuantity";
 import { changeQuantity } from '../../modules/changeQuantity';
 import { parseStorage } from "../../modules/updateStorage";
+import { getPromo, applyPromo } from '../../modules/promocodes';
 
 export type count = {
   count: number;
@@ -34,6 +35,10 @@ export function renderCart(): void {
     const goodsInCart = createGoodsInCart(goodsID);
     renderCartWithGoods(goodsInCart);
     changeQuantity();
+    getPromo();
+    const price = countPrice(goodsInCart);
+    applyPromo(price);
+
   }
 }
 
@@ -75,14 +80,6 @@ function renderCartWithGoods(arrayOfGoods: goodInCart[]): void {
   const buyBtn = document.querySelector('.buy-now');
   if (buyBtn) {
     buyBtn.addEventListener('click', modal);
-  }
-  const promoInput = document.querySelector<HTMLInputElement>('.promo-code__input');
-  console.log(promoInput);
-  if (promoInput) {
-    promoInput.addEventListener('input', () => {
-      const promocode = promoInput.value;
-      console.log(promocode);
-    });
   }
 }
 
@@ -198,7 +195,7 @@ function createCartFooter(sum: number, quantity: number): string {
           <input type="search" placeholder="Введите ваш промокод" class="promo-code__input border">
         </div>
         <div class="cart-footer__promo-code-descr border flex_sb">
-          Промокод RS -10%
+          <span>Найденные промокоды</span>
           <button class="add__promo">
             <span class="material-icons">ads_click</span>
           </button>
@@ -209,10 +206,7 @@ function createCartFooter(sum: number, quantity: number): string {
             Примененные промокоды:
           </h3>
           <div class="applied__codes-text flex_sb">
-            Промокод RS -10%
-            <button class="drop">
-              <span class="material-icons">delete</span>
-            </button>
+            <span></span>
           </div>
         </div>
         <button class="btn buy-btn buy-now">Оплатить заказ</button>
