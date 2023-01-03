@@ -65,9 +65,6 @@
       @include font(2.5rem, 120%, 700);
     }
   }
-  &-message{
-    @include font(2.5rem, 120%, 700);
-  }
   &-body {
     @include font(2rem, 120%, 500);
     text-align: center;
@@ -96,17 +93,26 @@
   flex-direction: column;
   align-items: center;
   gap: 2rem;
-  // justify-content: space-between;
   width: 100%;
   height: 100%;
   margin-bottom: 3rem;
 }
 
 .input {
+  @include font(2rem, 120%, 500);
   width: 80%;
   height: 4rem;
   padding: 1rem;
+  margin-bottom: 1rem;
 }
+.label {
+  @include font(1.5rem, 120%, 600);
+  width: 100%;
+  height: 6rem;
+  padding: 1rem 0;
+  margin-bottom: 1rem;
+}
+
 input::placeholder {
   @include font(2rem, 120%, 500);
 }
@@ -123,6 +129,13 @@ input::placeholder {
     width: 170px;
     height: 70px;
   }
+}
+
+.status {
+  @include font(2.5rem, 120%, 700);
+  display: block;
+  margin: 0 auto;
+  text-align: center;
 }
 
 @keyframes slideInUp {
