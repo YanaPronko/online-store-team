@@ -1,80 +1,77 @@
 import products from '../../files/products.json'
-
+import { initProductSlider } from '../../modules/productSlider'
+import { onProductHandler, productData } from '../catalog/catalog'
 const PRODUCTS = products.products
 
-type productData = {
-  id: number,
-  title: string,
-  description: string,
-  price: number,
-  rating: number,
-  stock: number,
-  brand: string,
-  category: string,
-  thumbnail: string,
-  images:  string[]
-}
 
-export function createProductCart(productData :productData) :string { 
+export function createProductPage(productData :productData) :string { 
   return `
-  <div class="good__card">
-    <img src="${productData.thumbnail}" alt="photo" class="good__img">
-    <div class="good__content">
-        <a href="./product.html">
-            <div class="good__title">${productData.title}</div>
-        </a>
-        <div class="good__rating">
+<div class="container">
+    <ul class="breadcrumb">
+      <li class="breadcrumb-item"><a class="breadcrumb-ref rout-link" href="/">Главная</a></li>
+      <li class="breadcrumb-item">${productData.category}</li>
+      <li class="breadcrumb-item">${productData.title}</li>
+    </ul>
+    <div class="card">
+      <div class="card-slider">
+        <div class="card-slider__nav slider-nav">
+          <div class="slider-nav__item" tabindex="0"><img src=${productData.thumbnail} alt="photo"></div>
+          <div class="slider-nav__item" tabindex="0"><img src=${productData.images[0]} alt="photo"></div>
+          <div class="slider-nav__item" tabindex="0"><img src=${productData.images[1]} alt="photo"></div>
+        </div>
+        <div class="card-slider__block slider-block">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src=${productData.thumbnail} alt="photo">
+            </div>
+            <div class="swiper-slide">
+              <img src=${productData.images[0]} alt="photo">
+            </div>
+            <div class="swiper-slide">
+              <img src=${productData.images[1]} alt="photo">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-info">
+        <span class="vendor">Артикул: ${productData.id}</span>
+        <div class="card-details">
+          <p class="card-brand">Бренд: <span>${productData.brand}</span></p>
+          <p class="card-category">Категория: <span>${productData.category}</span></p>
+        </div>
+        <h1 class="card-title">${productData.category}</h1>
+        <div class="card-description">
+          <p>${productData.description}</p>
+        </div>
+        <div class="testimonials">
+          <div class="good__rating">
             <span class="star active material-icons ico">star_rate</span>
             <span class="star active material-icons ico">star_rate</span>
             <span class="star active material-icons ico">star_rate</span>
             <span class="star active material-icons ico">star_rate</span>
             <span class="star  material-icons ico">star_rate</span>
+          </div>
         </div>
-        <div class="good__footer">
-            <div class="good__price">${productData.price}<span>BYN</span></div>
-            <button class="btn add-btn" data-id="${productData.id}">Добавить в корзину</button>
+        <span class="available">В наличии: ${productData.stock} шт</span>
+        <div class="price">
+          <div class="price__current">${productData.price}<span>BYN</span></div>
+          <button class="btn product-btn" data-id="${productData.id}">Добавить в корзину</button>
         </div>
+        <button class="btn buy-btn">Купить сейчас</button>
+      </div>
     </div>
-  </div>`
+</div>
+</div>`
 }
 
-export function renderProducts(params? : string) : void {
-  const productsWrapepr = document.querySelector('.goods__wrapper') 
+export function renderProductPage(id : number) : void {
+  const productsWrapepr = document.querySelector('.main-content') 
   if(productsWrapepr) {
-    productsWrapepr.innerHTML = '' 
-    if(params) {
-      return
-    } else {   
-      Object.values(PRODUCTS).forEach((product) => {
-        const productCart = createProductCart(product)      
-        if(productsWrapepr) productsWrapepr.innerHTML += productCart
-      })   
-    }
+    productsWrapepr.innerHTML = ''
+    const productCart = createProductPage(PRODUCTS[id])      
+    if(productsWrapepr) productsWrapepr.innerHTML += productCart
     productsWrapepr.addEventListener('click', onProductHandler)
+    initProductSlider()
   }
 
-}
-
-function onProductHandler(e:Event) {
-  console.log(e.target)
-  if(e.target) {
-    if((e.target as HTMLElement).tagName == 'BUTTON' ) {
-      const id = (e.target as HTMLElement).getAttribute('data-id')
-      addToProductToStorage( id as string)
-    }
-  }
-
-}
-
-function addToProductToStorage(id:string) {
-  if (localStorage.getItem('cart') === null) {
-    const cart:string[] = []
-    cart.push(id)
-    localStorage.setItem('cart', JSON.stringify(cart))
-  } 
-  if(localStorage.getItem('cart') !== null) {
-    const cart  = JSON.parse((localStorage.getItem("cart") as string))
-    cart.push(id)
-    localStorage.setItem('cart', JSON.stringify(cart))
-  }
 }
