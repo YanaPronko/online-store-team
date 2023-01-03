@@ -1,10 +1,10 @@
 import { item } from '../containers/product/product';
 import { renderCart } from '../containers/cart/cart';
-import { setStorage } from './updateStorage';
+import { setStorage, parseStorage } from './updateStorage';
 import { deleteProductFromCart } from './deleteGoods';
 
 export const changeQuantity = () => {
-  const goodsID: item[] = JSON.parse(localStorage.getItem('cart') as string);
+  const goodsID: item[] = parseStorage("cart");
   const mainCartSection = document.querySelector('.main-cart');
   if (mainCartSection)
     mainCartSection.addEventListener('click', (e: Event) => {

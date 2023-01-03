@@ -4,7 +4,7 @@ import modal from "../../modules/modal";
 import { deleteProductFromCart } from "../../modules/deleteGoods";
 import { countPrice } from '../../modules/countFinalPrice';
 import { countTotalGoods } from "../../modules/totalQuantity";
-import { changeQuantity } from '../../modules/changeQuantity';
+// import { changeQuantity } from '../../modules/changeQuantity';
 import { parseStorage } from "../../modules/updateStorage";
 
 export type count = {
@@ -27,13 +27,13 @@ function createGoodsInCart(goodsID: item[]) {
 }
 
 export function renderCart(): void {
-  const goodsID: item[] = JSON.parse(localStorage.getItem('cart') as string);
+  const goodsID: item[] = parseStorage("cart");
   if (!goodsID || goodsID.length === 0) {
     renderEmptyCart();
   } else {
     const goodsInCart = createGoodsInCart(goodsID);
     renderCartWithGoods(goodsInCart);
-    changeQuantity();
+    // changeQuantity();
   }
 }
 
@@ -69,12 +69,20 @@ function renderCartWithGoods(arrayOfGoods: goodInCart[]): void {
         const ind = +(goods.findIndex((item: item) => item.id === id));
         deleteProductFromCart(goods, ind);
       }
-      });
+    });
   });
 
   const buyBtn = document.querySelector('.buy-now');
   if (buyBtn) {
     buyBtn.addEventListener('click', modal);
+  }
+  const promoInput = document.querySelector<HTMLInputElement>('.promo-code__input');
+  console.log(promoInput);
+  if (promoInput) {
+    promoInput.addEventListener('input', () => {
+      const promocode = promoInput.value;
+      console.log(promocode);
+    });
   }
 }
 
@@ -83,6 +91,7 @@ function createEmptyCart(): HTMLDivElement {
   cartBody.classList.add('section-cart__body');
   cartBody.innerHTML = `
     <h1 class="cart__subtitle">Корзина пуста!</h1>
+    <input type="search">
     `;
   return cartBody;
 }
@@ -158,7 +167,7 @@ function createDeleteBtns(product: goodInCart): HTMLDivElement {
   return productControls;
 }
 
-export function createCartFooter(sum:number, quantity: number): string {
+function createCartFooter(sum: number, quantity: number): string {
    return `
     <footer class="cart-footer flex_col">
       <div class="cart-footer__summary grid">
@@ -192,7 +201,7 @@ export function createCartFooter(sum:number, quantity: number): string {
             <span class="material-icons">ads_click</span>
           </button>
         </div>
-        <span class="test__promo-code border flex_sb">Для теста код: "RS"</span>
+        <span class="test__promo-code border flex_sb">Для теста коды: "YANA", "ARTEM"</span>
         <div class="applied__codes border">
           <h3 class="applied__codes-title">
             Примененные промокоды:
