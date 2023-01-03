@@ -1,8 +1,8 @@
 import products from '../../files/products.json'
 
-const PRODUCTS = products.products
+export const PRODUCTS = products.products
 
-type productData = {
+export type productData = {
   id: number,
   title: string,
   description: string,
@@ -14,8 +14,12 @@ type productData = {
   thumbnail: string,
   images:  string[]
 }
+export type item = {
+  id: string;
+  count: number;
+}
 
-export function createProductCart(productData :productData) :string { 
+export function createProductCart(productData :productData) :string {
   return `
   <div class="good__card">
     <img src="${productData.thumbnail}" alt="photo" class="good__img">
@@ -39,16 +43,16 @@ export function createProductCart(productData :productData) :string {
 }
 
 export function renderProducts(params? : string) : void {
-  const productsWrapepr = document.querySelector('.goods__wrapper') 
+  const productsWrapepr = document.querySelector('.goods__wrapper')
   if(productsWrapepr) {
-    productsWrapepr.innerHTML = '' 
+    productsWrapepr.innerHTML = ''
     if(params) {
       return
-    } else {   
+    } else {
       Object.values(PRODUCTS).forEach((product) => {
-        const productCart = createProductCart(product)      
+        const productCart = createProductCart(product)
         if(productsWrapepr) productsWrapepr.innerHTML += productCart
-      })   
+      })
     }
     productsWrapepr.addEventListener('click', onProductHandler)
   }
@@ -56,7 +60,7 @@ export function renderProducts(params? : string) : void {
 }
 
 function onProductHandler(e:Event) {
-  console.log(e.target)
+  // console.log(e.target)
   if(e.target) {
     if((e.target as HTMLElement).tagName == 'BUTTON' ) {
       const id = (e.target as HTMLElement).getAttribute('data-id')
@@ -66,15 +70,21 @@ function onProductHandler(e:Event) {
 
 }
 
-function addToProductToStorage(id:string) {
+function addToProductToStorage(id: string) {
+   const item: item = {
+     id: id,
+     count: 1,
+   };
   if (localStorage.getItem('cart') === null) {
-    const cart:string[] = []
-    cart.push(id)
+    const cart:item[] = []
+    // cart.push(id);
+    cart.push(item);
     localStorage.setItem('cart', JSON.stringify(cart))
-  } 
+  }
   if(localStorage.getItem('cart') !== null) {
-    const cart  = JSON.parse((localStorage.getItem("cart") as string))
-    cart.push(id)
+    const cart = JSON.parse((localStorage.getItem("cart") as string))
+    cart.push(item);
+    // cart.push(id)
     localStorage.setItem('cart', JSON.stringify(cart))
   }
 }
