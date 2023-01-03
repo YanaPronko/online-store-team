@@ -1,65 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <link href="https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900" rel="stylesheet" />
-  <link rel="icon" type="image/png" sizes="16x16" href="#">
-  <link rel="icon" type="image/png" sizes="32x32" href="#">
-  <link rel="icon" type="image/png" sizes="64x64" href="#">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <title>Cart</title>
-</head>
-
-<body>
-  <header class="header">
-    <div class="container">
-      <div class="header__wrapper">
-        <div class="header__logo-wrap">
-          <a href="./index.html" class="header__logo logo">
-            <img src="assets/images/velo.png" alt="velo logo" class="logo__img">
-          </a>
-        </div>
-        <h1 class="title">VeloStore</h1>
-        <div class="header__search-wrap">
-          <div class="header__search">
-            <form class="search-field">
-              <input name="search" id="search" class="search-field__input" autocomplete="off" placeholder="Поиск...">
-              <button class="search-field__btn ico">
-                <span class="material-icons">search</span>
-              </button>
-            </form>
-          </div>
-        </div>
-        <div class="cart__wrapper">
-          <div class="cart">
-            <div class="not-empty">
-              <a href="#" class="cart__link">
-                <div class="cart__icon ico">
-                  <span class="material-icons">shopping_cart</span>
-                  <span class="cart__count">0</span>
-                </div>
-                <div class="cart__text">
-                  <div class="cart__title">Моя корзина</div>
-                  <div class="cart__sum">Корзина пуста</div>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </header>
-  <main class="main-content">
-    <section class="section-cart">
-      <header class="section-cart__header">
-        <div class="container">
-          <h1 class="cart__subtitle">Корзина товаров</h1>
-        </div>
-      </header>
       <div class="section-cart__body">
         <div class="container">
           <section class="main-cart">
@@ -69,7 +8,9 @@
               <div class="cart-header__cost">стоимость</div>
             </header>
             <section class="product  grid">
-              <div class="product__img"><img src="assets/images/list/main/1.jpg" alt="Велосипед Skill Bike"></div>
+              <div class="product__img">
+                <img src="assets/images/list/main/1.jpg" alt="Велосипед Skill Bike">
+              </div>
               <div class="product__title">Skill Bike/Велосипед горный взрослый подростковый</div>
               <div class="product__count">
                 <div class="count">
@@ -194,25 +135,5 @@
         </div>
       </div>
     </section>
-  </main>
-  <footer class="footer">
-    <div class="container footer__wrapper">
-      <div class="copirate footer__copirate">
-        <div>©</div>
-        <div>2022</div>
-        <div>
-          <a class="copirate__link" href="https://github.com/YanaPronko">Yana Pronko</a>
-          <a class="copirate__link" href="https://github.com/d1elit">d1elit</a>
-        </div>
-      </div>
-      <div class="footer__logo">
-        <a class="link copirate__link" href="https://rs.school/js/">
-          <svg class="rss__logo">
-            <use xlink:href="assets/images/sprite.svg#rss"></use>
-          </svg>
-        </a>
-      </div>
-    </div>
-  </footer>
-</body>
-</html>
+
+
