@@ -5,6 +5,7 @@ import { deleteProductFromCart } from "../../modules/deleteGoods";
 import { countPrice } from '../../modules/countFinalPrice';
 import { countTotalGoods } from "../../modules/totalQuantity";
 import { changeQuantity } from '../../modules/changeQuantity';
+import { parseStorage } from "../../modules/updateStorage";
 
 export type count = {
   count: number;
@@ -54,7 +55,21 @@ function renderCartWithGoods(arrayOfGoods: goodInCart[]): void {
   }
   const deleteBtns = document.querySelectorAll<HTMLButtonElement>('.delete-btn');
   deleteBtns.forEach((item) => {
-    item.addEventListener('click', deleteProductFromCart);
+    item.addEventListener('click', (e: Event) => {
+      const target = e.target as HTMLElement;
+      if ((target && target.closest('.delete-btn'))) {
+        const goods = parseStorage('cart');
+        let id: string;
+        if (target.tagName == 'SPAN') {
+          const parent = target.parentElement;
+          if (parent) id = parent.getAttribute('data-id') as string;
+        } else {
+          id = target.getAttribute('data-id') as string;
+        }
+        const ind = +(goods.findIndex((item: item) => item.id === id));
+        deleteProductFromCart(goods, ind);
+      }
+      });
   });
 
   const buyBtn = document.querySelector('.buy-now');

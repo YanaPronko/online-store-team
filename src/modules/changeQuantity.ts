@@ -52,7 +52,7 @@ function decreaseQuantity(e: Event, goods: item[]) {
     if (countSpan) countSpan.textContent = `${--goods[ind].count}`;
     setStorage('cart', goods);
     if (goods[ind].count <= 0) {
-      deleteProductFromCart(e);
+      deleteProductFromCart(goods, ind);
     }
   }
 }
