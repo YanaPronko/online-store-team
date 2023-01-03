@@ -1,7 +1,10 @@
-const modal = () => {
+import validateForm from "./validateForm";
+
+export const modal = document.createElement('div');
+const createModal = () => {
   const scroll = calcScroll();
 
-  const modal = document.createElement('div');
+
   modal.classList.add('modal', 'slideInDown');
   modal.setAttribute('id', 'exampleModal2');
   modal.innerHTML = `
@@ -14,36 +17,53 @@ const modal = () => {
               <div class="modal-title">Доставка и оплата</div>
             </div>
             <div class="modal-body">
-              <form action=# method=POST class="modal-body__form">
+              <form action=# method=POST id="form" class="modal-body__form">
 					      <div class="input__wrapper">
-                  <input type="text" class="input input__name" name="name" placeholder="Ваше имя и фамилия" required>
-                  <input type="tel" class="input input__phone" name="phone" placeholder="Ваш номер телефона" required>
-                  <input type="email" class="input input__email" name="email" placeholder="Ваш E-mail">
-                  <input type="text" class="input input__adress" name="adress"  placeholder="Адрес доставки" required>
+                <label for="name" class="label">
+                <input type="text" id="name" class="input input__name form__input form-control" name="name" placeholder="Ваше имя и фамилия" required>
+                </label>
+                <label for="phone" class="label">
+                  <input type="tel" id="phone" class="input input__phone" name="phone" placeholder="Ваш номер телефона" required>
+                </label>
+                <label for="email" class="label">
+                  <input type="email" id="email" class="input input__email" name="email" placeholder="Ваш E-mail">
+                </label>
+                <label for="adress" class="label">
+                  <input type="text" id="adress" class="input input__adress" name="adress"  placeholder="Адрес доставки" required>
+                </label>
 					      </div>
                 <div class="card__wrapper">
                   <div class="card__back">
                     <div class="card__back-line"></div>
-                    <input type="number" maxlength="3" class="input input__code" placeholder="CVV" required>
+                    <label for="cvv" class="label cvv-label">
+                    <input type="number" id="cvv" maxlength="3" class="input input__code" placeholder="CVV" required>
+                    </label>
                   </div>
                   <div class="card__front">
-                    <img src="assets/images/icons/prior.png" alt="logo of bank" class="card__image">
-                    <input type="number" class="input input__card-number" placeholder="номер карты" required>
+                    <div class="card__image">BANK</div>
+                    <label for="bank-number" class="label">
+                    <input id="bank-number" class="input input__card-number" placeholder="номер карты" required>
+                    </label>
                     <div class="card__front-footer">
                       <div class="date__wrap">
-                        <input type="number" maxlength="2" class="input input__month" required>
-                        <span class="slash">/</span>
-                        <input type="number" maxlength="2" class="input input__year" required>
+                        <label for="month" class="label">
+                        <input type="number" id="month" maxlength="2" class="input input__month" required>
+                        </label>
+                        <label for="slash" class="label">
+                        <span id="slash" class="slash">/</span>
+                        </label>
+                        <label for="year" class="label">
+                        <input type="number" id="year" maxlength="2" class="input input__year" required>
+                        </label>
                       </div>
                       <img src="assets/images/icons/Mastercard.svg" alt="logo of payment system" class="card__logo">
                     </div>
                   </div>
                 </div>
-					      <button class="btn order__btn">Оплатить</button>
+					      <button  id="submit-btn" class="btn order__btn">Оплатить</button>
 				      </form>
             </div>
             <div class="modal-footer">
-              <div class="modal-message hidden">Заказ оплачен</div>
             </div>
           </div>
         </div>
@@ -76,7 +96,6 @@ const modal = () => {
     closeElem.addEventListener('click', (e) => {
       const target = e.target;
       if (target && target instanceof HTMLElement && target.closest('[data-close]')) {
-        console.log(e.target);
         closeModal();
       }
     });
@@ -92,5 +111,10 @@ const modal = () => {
     document.body.style.overflow = '';
     document.body.style.marginRight = '0px';
   }
-};
-export default modal;
+
+  const form = document.querySelector("#form");
+  if (form) {
+    validateForm();
+  }
+}
+export default createModal;
