@@ -1,4 +1,4 @@
-export const setStorage = (key: string, value: object[]) => {
+export const setStorage = (key: string, value: object[] | string[]) => {
   localStorage.setItem(key, JSON.stringify(value));
 }
 export const parseStorage = (key: string) => {

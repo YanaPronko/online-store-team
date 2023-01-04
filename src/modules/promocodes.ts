@@ -1,4 +1,5 @@
 import { countFinalPrice } from "./countFinalPrice";
+import { parseStorage, setStorage } from "./updateStorage";
 
 const permittedCodes = ["YANA", "ARTEM"];
 
@@ -19,7 +20,7 @@ export const getPromo = () => {
 };
 
 export const applyPromo = (price: number) => {
-  const appliedCodes: string[] = localStorage.getItem('codes') ? JSON.parse(localStorage.getItem('codes') as string) : [];
+  const appliedCodes: string[] = localStorage.getItem('codes') ? parseStorage("codes") : [];
   const applyBtn = document.querySelector('.add__promo');
   const promocodeDescr = document.querySelector('.cart-footer__promo-code-descr span');
   if (applyBtn && promocodeDescr) {
@@ -27,7 +28,7 @@ export const applyPromo = (price: number) => {
       const appliedCode = promocodeDescr.textContent?.split(' ')[0];
       if (appliedCode && permittedCodes.includes(appliedCode)) {
         appliedCodes.push(appliedCode);
-        localStorage.setItem('codes', JSON.stringify(appliedCodes));
+        setStorage("codes", appliedCodes);
         renderAppliedCodes();
         renderFinalPrice(price);
         promocodeDescr.textContent = `Найденные промокоды`;
@@ -38,7 +39,7 @@ export const applyPromo = (price: number) => {
 
 export const renderAppliedCodes = () => {
   const appliedCodeField = document.querySelector('.applied__codes');
-  const appliedCodes: string[] = Array.from(new Set(JSON.parse(localStorage.getItem('codes') as string)));
+  const appliedCodes: string[] = Array.from(new Set(parseStorage("codes")));
   if (appliedCodeField) {
     appliedCodeField.innerHTML = `
           <h3 class="applied__codes-title">
@@ -61,7 +62,7 @@ export const renderAppliedCodes = () => {
 };
 
 export const renderFinalPrice = (price: number) => {
-  const appliedCodes: string[] = Array.from(new Set(JSON.parse(localStorage.getItem('codes') as string)));
+  const appliedCodes: string[] = Array.from(new Set(parseStorage('codes')));
   if (appliedCodes.length === 0) return;
 
   const oldPrice = document.querySelector('.old__price');
@@ -70,4 +71,3 @@ export const renderFinalPrice = (price: number) => {
   const finalPrice = countFinalPrice(price);
   if (currentPrice) currentPrice.textContent = `${Math.ceil(finalPrice)} BYN`;
 }
-
