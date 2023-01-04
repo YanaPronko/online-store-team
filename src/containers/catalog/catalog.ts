@@ -1,6 +1,6 @@
 import products from '../../files/products.json'
 
-const PRODUCTS = products.products
+export const PRODUCTS = products.products
 
 export type productData = {
   id: number,
@@ -13,6 +13,10 @@ export type productData = {
   category: string,
   thumbnail: string,
   images:  string[]
+}
+export type item = {
+  id: string;
+  count: number;
 }
 
 export function createProductCart(productData :productData) :string { 
@@ -265,15 +269,21 @@ export function onProductHandler(e:Event) {
   }
 }
 
-function addToProductToStorage(id:string) {
-  if (localStorage.getItem('cart') === null) {
-    const cart:string[] = []
-    cart.push(id)
-    localStorage.setItem('cart', JSON.stringify(cart))
-  } 
-  if(localStorage.getItem('cart') !== null) {
-    const cart  = JSON.parse((localStorage.getItem("cart") as string))
-    cart.push(id)
-    localStorage.setItem('cart', JSON.stringify(cart))
-  }
+function addToProductToStorage(id: string) {
+  const item: item = {
+    id: id,
+    count: 1,
+  };
+ if (localStorage.getItem('cart') === null) {
+   const cart:item[] = []
+   // cart.push(id);
+   cart.push(item);
+   localStorage.setItem('cart', JSON.stringify(cart))
+ }
+ if(localStorage.getItem('cart') !== null) {
+   const cart = JSON.parse((localStorage.getItem("cart") as string))
+   cart.push(item);
+   // cart.push(id)
+   localStorage.setItem('cart', JSON.stringify(cart))
+ }
 }
