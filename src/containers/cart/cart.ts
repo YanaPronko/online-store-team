@@ -7,6 +7,7 @@ import { countTotalGoods } from "../../modules/totalQuantity";
 import { changeQuantity } from '../../modules/changeQuantity';
 import { parseStorage } from "../../modules/updateStorage";
 import { getPromo, applyPromo, renderAppliedCodes, renderFinalPrice  } from '../../modules/promocodes';
+import { updateHeaderCart } from "../../modules/updateHeader";
 
 export type count = {
   count: number;
@@ -15,7 +16,7 @@ export type count = {
 export type goodInCart = productData & count;
 
 
-function createGoodsInCart(goodsID: item[]) {
+export function createGoodsInCart(goodsID: item[]) {
   const goodsInCart: goodInCart[] = [];
   for (let i = 0; i < goodsID.length; i++) {
     const item = PRODUCTS.find((good) => good.id === +goodsID[i].id);
@@ -41,6 +42,7 @@ export function renderCart(): void {
     applyPromo(price);
     renderAppliedCodes();
     renderFinalPrice(price);
+    updateHeaderCart();
   }
 }
 
@@ -134,7 +136,9 @@ function createProductSection(productData: goodInCart): HTMLElement {
       <div class="product__img">
         <img src=${productData.thumbnail} alt="Велосипед Skill Bike">
       </div>
-      <div class="product__title">${productData.title}</div>
+      <div class="product__title">${productData.title}
+        <span class="stock__subtitle">На складе: ${productData.stock} ед.</span>
+      </div>
       <div class="product__count">
         <div class="count">
           <div class="count__box">
@@ -150,7 +154,7 @@ function createProductSection(productData: goodInCart): HTMLElement {
           </div>
         </div>
       </div>
-      <div class="product__price">${productData.price} BYN</div>
+      <div class="product__price">${productData.price * productData.count} BYN</div>
   `;
   const controls = createDeleteBtns(productData);
   productSection.append(controls);
