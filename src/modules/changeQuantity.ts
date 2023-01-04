@@ -5,12 +5,14 @@ import { deleteProductFromCart } from './deleteGoods';
 
 export const changeQuantity = () => {
   const goodsID: item[] = parseStorage("cart");
-  const mainCartSection = document.querySelector('.main-cart');
-  if (mainCartSection)
-    mainCartSection.addEventListener('click', (e: Event) => {
+  const gridContainer = document.querySelector('.grid__container');
+  if (gridContainer)
+    gridContainer.addEventListener('click', (e: Event) => {
       const target = e.target as HTMLElement;
       const upBtn = target.closest('.count__up');
       const downBtn = target.closest('.count__down');
+      if (!upBtn && !downBtn) return;
+
       if (upBtn) {
         increaseQuantity(e, goodsID);
       }

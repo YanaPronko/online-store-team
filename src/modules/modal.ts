@@ -1,6 +1,18 @@
 import validateForm from "./validateForm";
 
 export const modal = document.createElement('div');
+
+export function closeModal() {
+  const element = document.querySelector('.modal');
+  if (element) {
+    element.classList.remove('slideInDown');
+    element.classList.add('slideInUp');
+    element.remove();
+  }
+  document.body.style.overflow = '';
+  document.body.style.marginRight = '0px';
+}
+
 const createModal = () => {
   const scroll = calcScroll();
 
@@ -99,17 +111,6 @@ const createModal = () => {
         closeModal();
       }
     });
-  }
-
-  function closeModal() {
-    const element = document.querySelector('.modal');
-    if (element) {
-      element.classList.remove('slideInDown');
-      element.classList.add('slideInUp');
-      element.remove();
-    }
-    document.body.style.overflow = '';
-    document.body.style.marginRight = '0px';
   }
 
   const form = document.querySelector("#form");

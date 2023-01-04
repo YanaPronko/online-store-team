@@ -4,14 +4,16 @@ import modal from "../../modules/modal";
 import { deleteProductFromCart } from "../../modules/deleteGoods";
 import { countPrice } from '../../modules/countFinalPrice';
 import { countTotalGoods } from "../../modules/totalQuantity";
-// import { changeQuantity } from '../../modules/changeQuantity';
+import { changeQuantity } from '../../modules/changeQuantity';
 import { parseStorage } from "../../modules/updateStorage";
+import { getPromo, applyPromo, renderAppliedCodes, renderFinalPrice  } from '../../modules/promocodes';
 
 export type count = {
   count: number;
 }
 
 export type goodInCart = productData & count;
+
 
 function createGoodsInCart(goodsID: item[]) {
   const goodsInCart: goodInCart[] = [];
@@ -33,7 +35,12 @@ export function renderCart(): void {
   } else {
     const goodsInCart = createGoodsInCart(goodsID);
     renderCartWithGoods(goodsInCart);
-    // changeQuantity();
+    changeQuantity();
+    getPromo();
+    const price = countPrice(goodsInCart);
+    applyPromo(price);
+    renderAppliedCodes();
+    renderFinalPrice(price);
   }
 }
 
@@ -76,14 +83,6 @@ function renderCartWithGoods(arrayOfGoods: goodInCart[]): void {
   if (buyBtn) {
     buyBtn.addEventListener('click', modal);
   }
-  const promoInput = document.querySelector<HTMLInputElement>('.promo-code__input');
-  console.log(promoInput);
-  if (promoInput) {
-    promoInput.addEventListener('input', () => {
-      const promocode = promoInput.value;
-      console.log(promocode);
-    });
-  }
 }
 
 function createEmptyCart(): HTMLDivElement {
@@ -112,11 +111,13 @@ function createCart(goodsInCart: goodInCart[]): HTMLDivElement {
       <div class="cart-header__cost">стоимость</div>
     </header>
   `;
+  const gridContainer = document.createElement('div');
+  gridContainer.classList.add('grid__container');
   goodsInCart.forEach((item) => {
     const product = createProductSection(item);
-    mainCartSection.append(product);
+    gridContainer.append(product);
   });
-
+  mainCartSection.append(gridContainer);
   const sum = countPrice(goodsInCart);
   const quantity = countTotalGoods(goodsInCart);
   const footer = createCartFooter(sum, quantity);
@@ -187,7 +188,7 @@ function createCartFooter(sum: number, quantity: number): string {
       </div>
       <div class="cart-footer__count">Количество товаров: ${quantity}</div>
       <div class="cart-footer__price flex_col">
-        <span class="old__price">600 000 BYN</span>
+        <span class="old__price"></span>
         <span class="current__price">${sum} BYN</span>
       </div>
       </div>
@@ -196,7 +197,7 @@ function createCartFooter(sum: number, quantity: number): string {
           <input type="search" placeholder="Введите ваш промокод" class="promo-code__input border">
         </div>
         <div class="cart-footer__promo-code-descr border flex_sb">
-          Промокод RS -10%
+          <span>Найденные промокоды</span>
           <button class="add__promo">
             <span class="material-icons">ads_click</span>
           </button>
@@ -207,10 +208,7 @@ function createCartFooter(sum: number, quantity: number): string {
             Примененные промокоды:
           </h3>
           <div class="applied__codes-text flex_sb">
-            Промокод RS -10%
-            <button class="drop">
-              <span class="material-icons">delete</span>
-            </button>
+            <span></span>
           </div>
         </div>
         <button class="btn buy-btn buy-now">Оплатить заказ</button>

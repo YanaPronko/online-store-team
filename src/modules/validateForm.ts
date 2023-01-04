@@ -1,5 +1,7 @@
 import JustValidate, { Rules } from 'just-validate';
-import { modal } from './modal';
+import { modal, closeModal } from './modal';
+import { clearCart } from './clearCart';
+import { renderCart } from '../containers/cart/cart';
 
 
 const validateForm = () => {
@@ -144,7 +146,9 @@ const validateForm = () => {
         setTimeout(() => {
           form.reset();
           thanks.remove();
-          // clearCart();
+          clearCart();
+          closeModal();
+          renderCart();
           // redirect();
         }, 5000);
       });
