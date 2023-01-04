@@ -36,7 +36,6 @@ document.querySelectorAll('.rout-link').forEach(element => {
 
 function linkHandler (e:Event) {
   e.preventDefault()
-  // console.log(e.currentTarget)
   urlRoute(e);
  }
 

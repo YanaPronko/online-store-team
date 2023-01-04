@@ -1,6 +1,7 @@
 import products from '../../files/products.json'
-
+import { updateHeaderCart } from '../../modules/updateHeader'
 export const PRODUCTS = products.products
+
 
 export type productData = {
   id: number,
@@ -56,18 +57,16 @@ export function renderProducts(params? : string) : void {
     }
     productsWrapepr.addEventListener('click', onProductHandler)
   }
-
 }
 
 function onProductHandler(e:Event) {
-  // console.log(e.target)
   if(e.target) {
     if((e.target as HTMLElement).tagName == 'BUTTON' ) {
       const id = (e.target as HTMLElement).getAttribute('data-id')
-      addToProductToStorage( id as string)
+      addToProductToStorage(id as string)
+      updateHeaderCart();
     }
   }
-
 }
 
 function addToProductToStorage(id: string) {
@@ -75,16 +74,8 @@ function addToProductToStorage(id: string) {
      id: id,
      count: 1,
    };
-  if (localStorage.getItem('cart') === null) {
-    const cart:item[] = []
-    // cart.push(id);
-    cart.push(item);
-    localStorage.setItem('cart', JSON.stringify(cart))
-  }
-  if(localStorage.getItem('cart') !== null) {
-    const cart = JSON.parse((localStorage.getItem("cart") as string))
-    cart.push(item);
-    // cart.push(id)
-    localStorage.setItem('cart', JSON.stringify(cart))
-  }
+
+  const cart: item[] = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart') as string) : [];
+  cart.push(item);
+  localStorage.setItem('cart', JSON.stringify(cart));
 }

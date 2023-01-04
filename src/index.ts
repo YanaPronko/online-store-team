@@ -3,6 +3,7 @@ import { initProductSlider } from "./modules/productSlider";
 import { initFilterSlider } from "./modules/priceSlider";
 import "./modules/router";
 import './containers/cart/cart';
+
 document.addEventListener("DOMContentLoaded", () => {
   initProductSlider();
   initFilterSlider({

@@ -124,6 +124,9 @@
     }
   }
   &__title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     @media (max-width: $tablet-width){
       grid-column: 3/-1;
     }
@@ -146,6 +149,9 @@
 
 .product > * {
   align-self: center;
+}
+.stock__subtitle {
+  @include font(1.4rem, 120%);
 }
 
 .count {
