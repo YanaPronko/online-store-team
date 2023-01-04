@@ -6,13 +6,14 @@ import { countPrice } from '../../modules/countFinalPrice';
 import { countTotalGoods } from "../../modules/totalQuantity";
 import { changeQuantity } from '../../modules/changeQuantity';
 import { parseStorage } from "../../modules/updateStorage";
-import { getPromo, applyPromo } from '../../modules/promocodes';
+import { getPromo, applyPromo, renderAppliedCodes, renderFinalPrice  } from '../../modules/promocodes';
 
 export type count = {
   count: number;
 }
 
 export type goodInCart = productData & count;
+
 
 function createGoodsInCart(goodsID: item[]) {
   const goodsInCart: goodInCart[] = [];
@@ -38,7 +39,8 @@ export function renderCart(): void {
     getPromo();
     const price = countPrice(goodsInCart);
     applyPromo(price);
-
+    renderAppliedCodes();
+    renderFinalPrice(price);
   }
 }
 
@@ -186,7 +188,7 @@ function createCartFooter(sum: number, quantity: number): string {
       </div>
       <div class="cart-footer__count">Количество товаров: ${quantity}</div>
       <div class="cart-footer__price flex_col">
-        <span class="old__price">600 000 BYN</span>
+        <span class="old__price"></span>
         <span class="current__price">${sum} BYN</span>
       </div>
       </div>
