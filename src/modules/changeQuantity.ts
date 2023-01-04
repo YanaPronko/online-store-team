@@ -39,7 +39,11 @@ function increaseQuantity(e: Event, goods: item[]) {
   if (target && target.closest('.count__up')) {
     const parent = getParent(target, '.product');
     const ind = getIndex(goods, parent);
-    const countSpan = getSpan(parent, '.count__span' );
+    const countSpan = getSpan(parent, '.count__span');
+    const stock = parent.querySelector('.stock__subtitle')?.textContent?.split(' ')[2];
+    if (stock && goods[ind].count >= +stock) {
+      return;
+    }
     if (countSpan) countSpan.textContent = `${++goods[ind].count}`;
     setStorage("cart", goods);
   }

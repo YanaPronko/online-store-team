@@ -1,6 +1,7 @@
 import products from '../../files/products.json'
-
+import { updateHeaderCart } from '../../modules/updateHeader'
 export const PRODUCTS = products.products
+
 
 export type productData = {
   id: number,
@@ -62,7 +63,8 @@ function onProductHandler(e:Event) {
   if(e.target) {
     if((e.target as HTMLElement).tagName == 'BUTTON' ) {
       const id = (e.target as HTMLElement).getAttribute('data-id')
-      addToProductToStorage( id as string)
+      addToProductToStorage(id as string)
+      updateHeaderCart();
     }
   }
 }

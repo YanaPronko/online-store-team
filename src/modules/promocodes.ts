@@ -1,4 +1,5 @@
 import { countFinalPrice } from "./countFinalPrice";
+import { updateHeaderCart } from "./updateHeader";
 import { parseStorage, setStorage } from "./updateStorage";
 
 const permittedCodes = ["YANA", "ARTEM"];
@@ -31,6 +32,7 @@ export const applyPromo = (price: number) => {
         setStorage("codes", appliedCodes);
         renderAppliedCodes();
         renderFinalPrice(price);
+        updateHeaderCart();
         promocodeDescr.textContent = `Найденные промокоды`;
       }
     });
