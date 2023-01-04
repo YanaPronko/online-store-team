@@ -14,7 +14,6 @@ export const initProductSlider = () => {
       const target = e.currentTarget;
       if (target && target instanceof HTMLElement && target.dataset.index) {
         const index = parseInt(target.dataset.index);
-        console.log(index);
         mySwiper.slideTo(index);
         target.classList.add("slider-border");
       }

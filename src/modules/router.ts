@@ -1,5 +1,7 @@
+
 import { renderCatalog } from "../containers/catalog/catalog";
 import {  renderProductPage } from "../containers/product/product";
+import { renderCart } from "../containers/cart/cart";
 
 type pageObject = {
   template: string,
@@ -10,7 +12,7 @@ type pageObject = {
 type urlObject = {
   [key: number]: pageObject,
   [key: string]: pageObject ,
- 
+
 }
 
 let TARGET_ID:number | undefined = undefined
@@ -28,7 +30,7 @@ const _urlROutes: urlObject = {
   },
   "/cart": {
     template: '/cart.html',  
-    render: renderCatalog,
+    render: renderCart,
     title:"cart",   
   },
   "/product": {
@@ -47,6 +49,8 @@ function linkHandler (e:Event) {
   const id =  (e.currentTarget as HTMLElement).getAttribute('data-id');
   if(e.currentTarget && id !== null ) 
   TARGET_ID = +id 
+
+
   urlRoute(e);
  }
 
@@ -59,6 +63,7 @@ const urlRoute = (event:Event) => {
   urlLocationHandler();
 }
 
+
 const ifProductUrlHandler = (location:string) => {
   if(location.includes('product')) return '/product'
   return location
@@ -66,7 +71,7 @@ const ifProductUrlHandler = (location:string) => {
 
 const urlLocationHandler = async () => {   
   let location:string = ifProductUrlHandler(window.location.pathname);
- 
+
   if(location.length == 0) {
     location = '/'
   }
