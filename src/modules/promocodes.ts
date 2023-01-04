@@ -1,6 +1,8 @@
+import { renderCart } from "../containers/cart/cart";
+import { getParent } from "./changeQuantity";
 import { countFinalPrice } from "./countFinalPrice";
 import { updateHeaderCart } from "./updateHeader";
-import { parseStorage, setStorage } from "./updateStorage";
+import { parseStorage, removeItemFromStorage, setStorage } from "./updateStorage";
 
 const permittedCodes = ["YANA", "ARTEM"];
 
@@ -39,6 +41,22 @@ export const applyPromo = (price: number) => {
   }
 };
 
+const deletePromo = (e: Event) => {
+  const appliedCodes: string[] = Array.from(new Set(parseStorage('codes')));
+  const target = e.target as HTMLElement;
+  const dropBtn = target.closest(".drop");
+  if (dropBtn && appliedCodes.length > 1) {
+    const parent = getParent(target, '.applied__codes-text');
+    const codeSpan = parent.firstChild?.textContent?.split('-')[0].trim();
+    const ind = appliedCodes.findIndex((item: string) => item === `${codeSpan}`);
+    appliedCodes.splice(ind, 1);
+    setStorage('codes', appliedCodes);
+  } else {
+    removeItemFromStorage("codes");
+  }
+   renderCart();
+}
+
 export const renderAppliedCodes = () => {
   const appliedCodeField = document.querySelector('.applied__codes');
   const appliedCodes: string[] = Array.from(new Set(parseStorage("codes")));
@@ -60,8 +78,9 @@ export const renderAppliedCodes = () => {
     if (appliedCodeField) {
       appliedCodeField.append(textField);
     }
+     dropBtn.addEventListener('click', deletePromo);
   });
-};
+}
 
 export const renderFinalPrice = (price: number) => {
   const appliedCodes: string[] = Array.from(new Set(parseStorage('codes')));
