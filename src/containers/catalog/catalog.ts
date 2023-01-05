@@ -1,4 +1,5 @@
 import products from '../../files/products.json'
+import { parseStorage } from '../../modules/updateStorage'
 
 export const PRODUCTS = products.products
 
@@ -19,9 +20,9 @@ export type item = {
   count: number;
 }
 
-export function createProductCart(productData :productData) :string { 
+export function createProductCart(productData :productData) :string {
   return `
-  
+
   <div class="good__card">
     <img src="${productData.thumbnail}" alt="photo" class="good__img">
     <div class="good__content">
@@ -235,8 +236,8 @@ function createAsideBlock () :string {
 }
 
 export function renderCatalog(params? : string) : void {
-  const mainContent = document.querySelector('.main-content .container') 
- 
+  const mainContent = document.querySelector('.main-content .container')
+
   if (mainContent) {
     const productsWrapepr =  document.createElement('div')
     productsWrapepr.classList.add('goods__wrapper')
@@ -245,17 +246,20 @@ export function renderCatalog(params? : string) : void {
     mainContent.innerHTML = createAsideBlock()
     const catalowWrapper = document.querySelector('.catalog__wrapper')
     if (catalowWrapper !== null)  catalowWrapper.append(productsWrapepr)
-    productsWrapepr.innerHTML = '' 
-    
+    productsWrapepr.innerHTML = ''
+
     if(params) {
       return
-    } else {   
+    } else {
       Object.values(PRODUCTS).forEach((product) => {
-        const productCart = createProductCart(product)      
+        const productCart = createProductCart(product)
         if(productsWrapepr) productsWrapepr.innerHTML += productCart
-      })   
+      })
     }
-    productsWrapepr.addEventListener('click', onProductHandler)
+      productsWrapepr.addEventListener('click', onProductHandler)
+      
+      const pagOptions = localStorage.getItem('pagination') ? parseStorage("pagination"): [{ rows: 3, page: 0 }];
+      localStorage.setItem('pagination', JSON.stringify(pagOptions));
   }
 
 }
@@ -274,16 +278,19 @@ function addToProductToStorage(id: string) {
     id: id,
     count: 1,
   };
- if (localStorage.getItem('cart') === null) {
+
+   const cart: item[] = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart') as string) : [];
+   cart.push(item);
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+ /* if (localStorage.getItem('cart') === null) {
    const cart:item[] = []
-   // cart.push(id);
    cart.push(item);
    localStorage.setItem('cart', JSON.stringify(cart))
  }
  if(localStorage.getItem('cart') !== null) {
    const cart = JSON.parse((localStorage.getItem("cart") as string))
    cart.push(item);
-   // cart.push(id)
    localStorage.setItem('cart', JSON.stringify(cart))
- }
+ } */
 }
