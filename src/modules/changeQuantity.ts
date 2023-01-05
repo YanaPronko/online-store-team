@@ -1,4 +1,4 @@
-import { item } from '../containers/product/product';
+import { item } from '../containers/catalog/catalog';
 import { renderCart } from '../containers/cart/cart';
 import { setStorage, parseStorage } from './updateStorage';
 import { deleteProductFromCart } from './deleteGoods';
@@ -23,7 +23,7 @@ export const changeQuantity = () => {
     });
 };
 
-function getParent(target: HTMLElement, sel: string) {
+export function getParent(target: HTMLElement, sel: string) {
   const parent = target.closest(sel) as HTMLElement;
   return parent;
 }

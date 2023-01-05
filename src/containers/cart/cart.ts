@@ -1,5 +1,5 @@
-import { PRODUCTS } from "../product/product";
-import { productData, item } from "../product/product";
+import { PRODUCTS } from "../catalog/catalog";
+import { productData, item } from "../catalog/catalog";
 import modal from "../../modules/modal";
 import { deleteProductFromCart } from "../../modules/deleteGoods";
 import { countPrice } from '../../modules/countFinalPrice';
@@ -8,6 +8,7 @@ import { changeQuantity } from '../../modules/changeQuantity';
 import { parseStorage } from "../../modules/updateStorage";
 import { getPromo, applyPromo, renderAppliedCodes, renderFinalPrice  } from '../../modules/promocodes';
 import { updateHeaderCart } from "../../modules/updateHeader";
+import { cartPagination, changeInputLimit, onNextArrowHandler, onPrevArrowHandler } from "../../modules/cartPagination";
 
 export type count = {
   count: number;
@@ -31,6 +32,7 @@ export function createGoodsInCart(goodsID: item[]) {
 
 export function renderCart(): void {
   const goodsID: item[] = parseStorage("cart");
+
   if (!goodsID || goodsID.length === 0) {
     renderEmptyCart();
   } else {
@@ -43,30 +45,70 @@ export function renderCart(): void {
     renderAppliedCodes();
     renderFinalPrice(price);
     updateHeaderCart();
+    const rowsInput = document.querySelector<HTMLInputElement>('.cart-footer__input');
+    const nextArrow = document.querySelector('.page__next');
+    const prevArrow = document.querySelector('.page__prev');
+
+    rowsInput?.addEventListener('change', changeInputLimit);
+    nextArrow?.addEventListener("click", (e: Event) => {
+      const target = e.target as HTMLElement;
+      const nextArr = target.closest('.page__next');
+      if (nextArr) {
+        onNextArrowHandler();
+      }
+    });
+    prevArrow?.addEventListener("click", (e: Event) => {
+      const target = e.target as HTMLElement;
+      const prevArr = target.closest('.page__prev');
+      if (prevArr) {
+        onPrevArrowHandler();
+      }
+    })
   }
 }
 
 function renderEmptyCart(): void {
   const emptyCart = createEmptyCart();
   const wrapper = document.querySelector('.wrapper');
+  const container = document.querySelector('.main-content .container');
   if (wrapper) {
     wrapper.innerHTML = '';
     wrapper.append(emptyCart);
+  } else {
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('wrapper');
+    wrapper.append(emptyCart);
+    if (container) {
+      container.innerHTML = '';
+      container.append(wrapper);
+    }
   }
 }
 
+
+
 function renderCartWithGoods(arrayOfGoods: goodInCart[]): void {
   const wrapper = document.querySelector('.wrapper');
+  const container = document.querySelector('.main-content .container');
   const cart = createCart(arrayOfGoods);
   if (wrapper) {
     wrapper.innerHTML = '';
     wrapper.append(cart);
+  } else {
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('wrapper');
+    wrapper.append(cart);
+    if (container) {
+      container.innerHTML = '';
+      container.append(wrapper);
+    }
   }
+
   const deleteBtns = document.querySelectorAll<HTMLButtonElement>('.delete-btn');
   deleteBtns.forEach((item) => {
     item.addEventListener('click', (e: Event) => {
       const target = e.target as HTMLElement;
-      if ((target && target.closest('.delete-btn'))) {
+      if (target && target.closest('.delete-btn')) {
         const goods = parseStorage('cart');
         let id: string;
         if (target.tagName == 'SPAN') {
@@ -75,7 +117,7 @@ function renderCartWithGoods(arrayOfGoods: goodInCart[]): void {
         } else {
           id = target.getAttribute('data-id') as string;
         }
-        const ind = +(goods.findIndex((item: item) => item.id === id));
+        const ind = +goods.findIndex((item: item) => item.id === id);
         deleteProductFromCart(goods, ind);
       }
     });
@@ -115,8 +157,12 @@ function createCart(goodsInCart: goodInCart[]): HTMLDivElement {
   `;
   const gridContainer = document.createElement('div');
   gridContainer.classList.add('grid__container');
-  goodsInCart.forEach((item) => {
-    const product = createProductSection(item);
+
+  const goodsForPage = cartPagination(goodsInCart);
+  const page = parseStorage("pagination")[0].page;
+  const rows = parseStorage("pagination")[0].rows;
+  if (goodsForPage)  goodsForPage.forEach((item, ind) => {
+    const product = createProductSection(item, ((rows * page) + ind + 1));
     gridContainer.append(product);
   });
   mainCartSection.append(gridContainer);
@@ -128,12 +174,13 @@ function createCart(goodsInCart: goodInCart[]): HTMLDivElement {
   return cartBody;
 }
 
-function createProductSection(productData: goodInCart): HTMLElement {
+function createProductSection(productData: goodInCart, ind: number): HTMLElement {
   const productSection = document.createElement("section");
   productSection.classList.add("product", "grid");
   productSection.setAttribute('data-id', `${productData.id}`);
   productSection.innerHTML = `
       <div class="product__img">
+        <div class="index">${ind}</div>
         <img src=${productData.thumbnail} alt="Велосипед Skill Bike">
       </div>
       <div class="product__title">${productData.title}
@@ -173,19 +220,22 @@ function createDeleteBtns(product: goodInCart): HTMLDivElement {
 }
 
 function createCartFooter(sum: number, quantity: number): string {
+  const pagOptions = parseStorage("pagination");
+  const rows = pagOptions[0].rows;
+  const page = pagOptions[0].page;
    return `
     <footer class="cart-footer flex_col">
       <div class="cart-footer__summary grid">
       <div class="cart-footer__limits">
         <span class="cart-footer__items">На странице по:</span>
-        <input type="text" class="cart-footer__input" value="3">
+        <input type="text" class="cart-footer__input" value="${rows}">
       </div>
       <div class="cart-footer__pagination">
         <span class="page__quantity-title">Страница:</span>
         <button class="page__prev">
           <span class="material-icons">arrow_back_ios</span>
         </button>
-        <span class="page__quantity">1</span>
+        <span class="page__quantity">${page + 1}</span>
         <button class="page__next">
           <span class="material-icons">arrow_forward_ios</span>
         </button>
