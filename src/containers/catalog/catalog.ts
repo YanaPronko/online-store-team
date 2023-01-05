@@ -1,4 +1,5 @@
 import products from '../../files/products.json'
+import { updateHeaderCart } from '../../modules/updateHeader'
 import { parseStorage } from '../../modules/updateStorage'
 
 export const PRODUCTS = products.products
@@ -257,9 +258,10 @@ export function renderCatalog(params? : string) : void {
       })
     }
       productsWrapepr.addEventListener('click', onProductHandler)
-      
+
       const pagOptions = localStorage.getItem('pagination') ? parseStorage("pagination"): [{ rows: 3, page: 0 }];
       localStorage.setItem('pagination', JSON.stringify(pagOptions));
+       updateHeaderCart();
   }
 
 }
@@ -268,7 +270,8 @@ export function onProductHandler(e:Event) {
   if(e.target) {
     if((e.target as HTMLElement).tagName == 'BUTTON' ) {
       const id = (e.target as HTMLElement).getAttribute('data-id')
-      addToProductToStorage( id as string)
+        addToProductToStorage(id as string)
+        updateHeaderCart();
     }
   }
 }

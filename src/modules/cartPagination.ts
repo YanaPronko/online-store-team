@@ -2,10 +2,18 @@ import { goodInCart, renderCart } from '../containers/cart/cart';
 import { parseStorage, setStorage} from './updateStorage';
 
 export const cartPagination = (arr: goodInCart[]) => {
+  const location = window.location.href;
+  const url = new URL(location);
+
   const pagOptions = parseStorage("pagination");
   const arrayForPagination = [...arr];
   const currentPage = pagOptions[0].page;
   const rows = pagOptions[0].rows;
+
+  url.searchParams.set('page', `${currentPage + 1}`);
+  url.searchParams.set('row', `${rows}`);
+  history.pushState("", "", url);
+  
   const totalPages = Math.ceil(arrayForPagination.length / rows);
   localStorage.setItem("totalPages", `${totalPages}`);
   const start = rows * currentPage;
