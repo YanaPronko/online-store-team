@@ -1,6 +1,5 @@
 import products from '../../files/products.json'
 import { initProductSlider } from '../../modules/productSlider'
-import { renderCart } from '../cart/cart'
 import { onProductHandler, productData } from '../catalog/catalog'
 const PRODUCTS = products.products
 
@@ -73,7 +72,6 @@ export function renderProductPage(id : number) : void {
     if(productsWrapepr) productsWrapepr.innerHTML += productCart
     productsWrapepr.addEventListener('click', (e: Event) => {
       onProductHandler(e);
-      renderCart();
     });
     initProductSlider()
   }
