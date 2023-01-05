@@ -115,9 +115,18 @@
     row-gap: 1rem;
   }
   &__img {
-    justify-self: center;
+    display: flex;
+    align-items: center;
+    .index {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 10%;
+      border: 1px solid $color-text;
+      border-radius: 50%;
+    }
     img {
-      width: 100%;
+      width: 90%;
     }
     @media (max-width: $tablet-width){
       grid-column: 1/3;
@@ -203,6 +212,10 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
+  .page__prev,
+  .page__next {
+    padding: 1rem;
+  }
 }
 
 .page__quantity {

@@ -4,7 +4,7 @@ import { onProductHandler, productData } from '../catalog/catalog'
 const PRODUCTS = products.products
 
 
-export function createProductPage(productData :productData) :string { 
+export function createProductPage(productData :productData) :string {
   return `
 <div class="container">
     <ul class="breadcrumb">
@@ -65,12 +65,14 @@ export function createProductPage(productData :productData) :string {
 }
 
 export function renderProductPage(id : number) : void {
-  const productsWrapepr = document.querySelector('.main-content') 
+  const productsWrapepr = document.querySelector('.main-content')
   if(productsWrapepr) {
     productsWrapepr.innerHTML = ''
-    const productCart = createProductPage(PRODUCTS[id])      
+    const productCart = createProductPage(PRODUCTS[id])
     if(productsWrapepr) productsWrapepr.innerHTML += productCart
-    productsWrapepr.addEventListener('click', onProductHandler)
+    productsWrapepr.addEventListener('click', (e: Event) => {
+      onProductHandler(e);
+    });
     initProductSlider()
   }
 

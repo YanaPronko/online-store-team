@@ -23,7 +23,7 @@ export const changeQuantity = () => {
     });
 };
 
-function getParent(target: HTMLElement, sel: string) {
+export function getParent(target: HTMLElement, sel: string) {
   const parent = target.closest(sel) as HTMLElement;
   return parent;
 }
