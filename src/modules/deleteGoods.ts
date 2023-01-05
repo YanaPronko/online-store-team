@@ -1,5 +1,5 @@
 import { renderCart } from "../containers/cart/cart";
-import { item } from "../containers/product/product";
+import { item } from "../containers/catalog/catalog";
 import { setStorage } from "./updateStorage";
 import { clearCart } from "./clearCart";
 

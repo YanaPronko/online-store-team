@@ -1,5 +1,5 @@
-import { PRODUCTS } from "../product/product";
-import { productData, item } from "../product/product";
+import { PRODUCTS } from "../catalog/catalog";
+import { productData, item } from "../catalog/catalog";
 import modal from "../../modules/modal";
 import { deleteProductFromCart } from "../../modules/deleteGoods";
 import { countPrice } from '../../modules/countFinalPrice';
@@ -46,22 +46,42 @@ export function renderCart(): void {
   }
 }
 
+
 function renderEmptyCart(): void {
   const emptyCart = createEmptyCart();
   const wrapper = document.querySelector('.wrapper');
+  const container = document.querySelector('.main-content .container');
   if (wrapper) {
     wrapper.innerHTML = '';
     wrapper.append(emptyCart);
+  } else {
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('wrapper');
+    wrapper.append(emptyCart);
+    if (container) {
+      container.innerHTML = '';
+      container.append(wrapper);
+    }
   }
 }
 
 function renderCartWithGoods(arrayOfGoods: goodInCart[]): void {
   const wrapper = document.querySelector('.wrapper');
+  const container = document.querySelector('.main-content .container');
   const cart = createCart(arrayOfGoods);
   if (wrapper) {
     wrapper.innerHTML = '';
     wrapper.append(cart);
+  } else {
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('wrapper');
+    wrapper.append(cart);
+    if (container) {
+      container.innerHTML = '';
+      container.append(wrapper);
+    }
   }
+
   const deleteBtns = document.querySelectorAll<HTMLButtonElement>('.delete-btn');
   deleteBtns.forEach((item) => {
     item.addEventListener('click', (e: Event) => {

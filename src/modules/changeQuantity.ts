@@ -1,4 +1,4 @@
-import { item } from '../containers/product/product';
+import { item } from '../containers/catalog/catalog';
 import { renderCart } from '../containers/cart/cart';
 import { setStorage, parseStorage } from './updateStorage';
 import { deleteProductFromCart } from './deleteGoods';
