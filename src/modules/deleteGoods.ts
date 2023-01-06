@@ -5,10 +5,20 @@ import { clearCart } from "./clearCart";
 
 
 export function deleteProductFromCart(array: item[], ind: number): void {
-  array.splice(ind, 1);
+  array.splice(ind, 1);  
   if (array.length === 0) {
     clearCart();
   }
   setStorage('cart', array);
   renderCart();
+}
+
+export function deleteProductOnMain(id: number | string): void {
+  const newCart = JSON
+  .parse(localStorage.getItem('cart') as string)
+  .filter((el: item) => +el.id !== +id)
+  if (newCart.length === 0) {
+    clearCart();
+  }
+  setStorage('cart', newCart); 
 }
