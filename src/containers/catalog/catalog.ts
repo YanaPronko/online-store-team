@@ -1,4 +1,5 @@
 import products from '../../files/products.json'
+import { deleteProductOnMain } from '../../modules/deleteGoods'
 import { updateHeaderCart } from '../../modules/updateHeader'
 import { parseStorage } from '../../modules/updateStorage'
 import { addQueryParams} from '../../modules/goodsFilter'
@@ -23,7 +24,7 @@ export type item = {
   count: number;
 }
 
-export function createProductCart(productData :productData) :string {
+export function createProductCart(productData :productData, btnText?: string) :string {
   return `
 
   <div class="good__card">
@@ -41,7 +42,7 @@ export function createProductCart(productData :productData) :string {
         </div>
         <div class="good__footer">
             <div class="good__price">${productData.price}<span>BYN</span></div>
-            <button class="btn add-btn" data-id="${productData.id}">Добавить в корзину</button>
+            <button class="btn add-btn" data-id="${productData.id}">${btnText}</button>
         </div>
     </div>
   </div>`
@@ -258,7 +259,8 @@ export function renderCatalog(/* params? : string */): void {
       /* return */
     } else {
       Object.values(PRODUCTS).forEach((product) => {
-        const productCart = createProductCart(product)
+        const productCart = isProductInStorage(product.id) ? createProductCart(product, 'Удалить из корзины') : createProductCart(product, 'Добавить в корзину')
+         
         if(productsWrapepr) productsWrapepr.innerHTML += productCart
       })
     }
@@ -286,15 +288,42 @@ export function renderCatalog(/* params? : string */): void {
 
 }
 
+function isProductInStorage(id : number | string) : boolean {
+  let status = false
+  JSON.parse(localStorage.getItem('cart') as string).forEach((element : item) => {   
+    if(+id === +element.id) {
+      status = true
+    }
+  });
+  return status
+}
+
+
+function toggleProductBtn (btn: HTMLElement) {
+  const id = btn.getAttribute('data-id')
+  if(btn.innerHTML === 'Удалить из корзины' && id !== null) {
+    deleteProductOnMain(id)
+    btn.innerHTML = 'Добавить в корзину'
+  }
+  if(id && isProductInStorage(id)) {
+    btn.innerHTML = 'Удалить из корзины'    
+  }   
+
+
+}
+
+
 export function onProductHandler(e:Event) {
   if(e.target) {
     if((e.target as HTMLElement).tagName == 'BUTTON' ) {
       const id = (e.target as HTMLElement).getAttribute('data-id')
-        addToProductToStorage(id as string)
+      if(id && !isProductInStorage(id)) addToProductToStorage(id as string)       
+        toggleProductBtn(e.target as HTMLElement)
         updateHeaderCart();
     }
   }
 }
+
 
 function addToProductToStorage(id: string) {
   const item: item = {
