@@ -32,8 +32,6 @@ export function createGoodsInCart(goodsID: item[]) {
 
 export function renderCart(): void {
   const goodsID: item[] = parseStorage("cart");
-  isQueryParamsExist();
-
   if (!goodsID || goodsID.length === 0) {
     renderEmptyCart();
   } else {
@@ -46,6 +44,7 @@ export function renderCart(): void {
     renderAppliedCodes();
     renderFinalPrice(price);
     updateHeaderCart();
+    isQueryParamsExist();
     const rowsInput = document.querySelector<HTMLInputElement>('.cart-footer__input');
     const nextArrow = document.querySelector('.page__next');
     const prevArrow = document.querySelector('.page__prev');

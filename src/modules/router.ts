@@ -80,7 +80,7 @@ const urlLocationHandler = async () => {
     route =  _urlROutes[404]
   }
 
-  TARGET_ID === undefined ?  route.render("category") : (route.render(TARGET_ID),  TARGET_ID = undefined)
+  TARGET_ID === undefined ?  route.render() : (route.render(TARGET_ID),  TARGET_ID = undefined)
 
   document.querySelectorAll('.rout-link').forEach(element => {
     element.addEventListener('click', linkHandler )

@@ -10,7 +10,6 @@ export const initFilterSlider = ({ sliderRangeSel, sliderInputSel, sliderProgres
     range = document.querySelector<HTMLElement>(sliderProgressSel);
 
   const valueGap = gap;
-  console.log(valueGap);
 
   valueInput.forEach((input) => {
     input.addEventListener('input', (e) => {

@@ -1,7 +1,8 @@
 import products from '../../files/products.json'
 import { updateHeaderCart } from '../../modules/updateHeader'
 import { parseStorage } from '../../modules/updateStorage'
-import { filterByCategoryAndBrands } from '../../modules/goodsFilter'
+import { addQueryParams} from '../../modules/goodsFilter'
+import { isQueryParamsExist } from '../../modules/queryParams'
 
 export const PRODUCTS = products.products
 
@@ -54,24 +55,24 @@ function createAsideBlock () :string {
           <h3 class="form-title">Категория</h3>
           <ul class="filter__list category__list">
               <li class="filter__list-item category__list-item">
-                  <input id="велосипед" type="checkbox" data-name='category' class="filter__target filter__input category__input">
-                  <label for="велосипед" class="filter__label category__label">Велосипеды</label>
+                  <input id="bike" type="checkbox" data-name='category' class="filter__target filter__input category__input">
+                  <label for="bike" class="filter__label category__label">Велосипеды</label>
               </li>
               <li class="filter__list-item category__list-item">
-                  <input id="велосипед детский" type="checkbox" data-name='category' class="filter__target filter__input category__input">
-                  <label for="велосипед детский" class="filter__label category__label">Детские велосипеды</label>
+                  <input id="Childbikee" type="checkbox" data-name='category' class="filter__target filter__input category__input">
+                  <label for="Childbike" class="filter__label category__label">Детские велосипеды</label>
               </li>
               <li class="filter__list-item category__list-item">
-                  <input id="велосипед трехколесный" type="checkbox" data-name='category' class="filter__target filter__input category__input">
-                  <label for="велосипед трехколесный" class="filter__label category__label">Трехколесные велосипеды</label>
+                  <input id="tricycle" type="checkbox" data-name='category' class="filter__target filter__input category__input">
+                  <label for="tricycle" class="filter__label category__label">Трехколесные велосипеды</label>
               </li>
               <li class="filter__list-item category__list-item">
-                  <input id="велобагажник" type="checkbox" data-name='category' class="filter__target filter__input category__input">
-                  <label for="велобагажник" class="filter__label category__label">Велобагажники</label>
+                  <input id="bike rack" type="checkbox" data-name='category' class="filter__target filter__input category__input">
+                  <label for="bike rack" class="filter__label category__label">Велобагажники</label>
               </li>
               <li class="filter__list-item category__list-item">
-                  <input id="аксессуары" type="checkbox" data-name='category' class="filter__target filter__input category__input">
-                  <label for="аксессуары" class="filter__label category__label">Аксессуары</label>
+                  <input id="accessory" type="checkbox" data-name='category' class="filter__target filter__input category__input">
+                  <label for="accessory" class="filter__label category__label">Аксессуары</label>
               </li>
           </ul>
       </fieldset>
@@ -237,8 +238,9 @@ function createAsideBlock () :string {
 <div class="not__found">Извините, по вашему запросу ничего не найдено</div></div>`;
 }
 
-export function renderCatalog(params? : string) : void {
-  const mainContent = document.querySelector('.main-content .container')
+export function renderCatalog(/* params? : string */): void {
+    const mainContent = document.querySelector('.main-content .container')
+    const queryParams = isQueryParamsExist();
 
   if (mainContent) {
     const productsWrapepr =  document.createElement('div')
@@ -250,23 +252,9 @@ export function renderCatalog(params? : string) : void {
     if (catalowWrapper !== null)  catalowWrapper.append(productsWrapepr)
     productsWrapepr.innerHTML = ''
 
-    
 
-      if (params) {
-        const filterForm = document.querySelector('.filter-form');
-        filterForm?.addEventListener("change", (e: Event) => {
-            const array = filterByCategoryAndBrands(e);
-            if (array) {
-                productsWrapepr.innerHTML = '';
-                array.forEach((product) => {
-                  if (productsWrapepr) {
-                    const productCart = createProductCart(product);
-                    if (productsWrapepr) productsWrapepr.innerHTML += productCart;
-                  }
-                });
-            }
-        });
-
+      if (queryParams) {
+       
       /* return */
     } else {
       Object.values(PRODUCTS).forEach((product) => {
@@ -275,6 +263,21 @@ export function renderCatalog(params? : string) : void {
       })
     }
       productsWrapepr.addEventListener('click', onProductHandler)
+
+      const filterForm = document.querySelector('.filter-form');
+      filterForm?.addEventListener('change', (e: Event) => {
+          addQueryParams(e);
+        //   renderCatalog();
+       /*  if (array) {
+          productsWrapepr.innerHTML = '';
+          array.forEach((product) => {
+            if (productsWrapepr) {
+              const productCart = createProductCart(product);
+              if (productsWrapepr) productsWrapepr.innerHTML += productCart;
+            }
+          });
+        } */
+      });
 
       const pagOptions = localStorage.getItem('pagination') ? parseStorage("pagination"): [{ rows: 3, page: 0 }];
       localStorage.setItem('pagination', JSON.stringify(pagOptions));
