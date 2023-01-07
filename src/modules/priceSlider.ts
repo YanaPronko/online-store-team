@@ -2,13 +2,15 @@ type SliderSelectors = {
   sliderRangeSel: string;
   sliderInputSel: string;
   sliderProgressSel: string;
+  gap: number;
 };
-export const initFilterSlider = ({ sliderRangeSel, sliderInputSel, sliderProgressSel }: SliderSelectors) => {
+export const initFilterSlider = ({ sliderRangeSel, sliderInputSel, sliderProgressSel, gap }: SliderSelectors) => {
   const rangeInput = document.querySelectorAll<HTMLInputElement>(sliderRangeSel),
     valueInput = document.querySelectorAll<HTMLInputElement>(sliderInputSel),
     range = document.querySelector<HTMLElement>(sliderProgressSel);
 
-  const valueGap = 1000;
+  const valueGap = gap;
+  console.log(valueGap);
 
   valueInput.forEach((input) => {
     input.addEventListener('input', (e) => {
@@ -18,7 +20,7 @@ export const initFilterSlider = ({ sliderRangeSel, sliderInputSel, sliderProgres
 
       if (maxValue - minValue >= valueGap && maxValue <= +rangeInput[1].max) {
         if (target && target instanceof HTMLInputElement
-          && target.className === 'input-min') {
+          && target.classList.contains('input-min')) {
           rangeInput[0].value = `${minValue}`;
           if (range) {
             range.style.left = (minValue / +rangeInput[0].max) * 100 + '%';
@@ -41,7 +43,7 @@ export const initFilterSlider = ({ sliderRangeSel, sliderInputSel, sliderProgres
 
       if (maxVal - minVal < valueGap) {
         if (target && target instanceof HTMLInputElement
-          && target.className === 'range-min') {
+          && target.classList.contains('range-min')) {
           rangeInput[0].value = `${maxVal - valueGap}`;
         } else {
           rangeInput[1].value = `${minVal + valueGap}`;
@@ -57,4 +59,3 @@ export const initFilterSlider = ({ sliderRangeSel, sliderInputSel, sliderProgres
     });
   });
 };
-

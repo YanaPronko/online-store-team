@@ -9,13 +9,13 @@ import { parseStorage } from "../../modules/updateStorage";
 import { getPromo, applyPromo, renderAppliedCodes, renderFinalPrice  } from '../../modules/promocodes';
 import { updateHeaderCart } from "../../modules/updateHeader";
 import { cartPagination, changeInputLimit, onNextArrowHandler, onPrevArrowHandler } from "../../modules/cartPagination";
+import { isQueryParamsExist } from "../../modules/queryParams";
 
 export type count = {
   count: number;
 }
 
 export type goodInCart = productData & count;
-
 
 export function createGoodsInCart(goodsID: item[]) {
   const goodsInCart: goodInCart[] = [];
@@ -32,6 +32,7 @@ export function createGoodsInCart(goodsID: item[]) {
 
 export function renderCart(): void {
   const goodsID: item[] = parseStorage("cart");
+  isQueryParamsExist();
 
   if (!goodsID || goodsID.length === 0) {
     renderEmptyCart();

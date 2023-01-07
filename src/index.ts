@@ -10,10 +10,12 @@ document.addEventListener("DOMContentLoaded", () => {
     sliderRangeSel: '.price__range-input input',
     sliderInputSel: '.price-input input',
     sliderProgressSel: '.price-slider .progress',
+    gap: 200,
   });
   initFilterSlider({
     sliderRangeSel: '.stock__range-input input',
     sliderInputSel: '.stock-input input',
     sliderProgressSel: '.stock-slider .progress',
+    gap: 10,
   });
 });
