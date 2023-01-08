@@ -2,8 +2,9 @@ import products from '../../files/products.json'
 import { deleteProductOnMain } from '../../modules/deleteGoods'
 import { updateHeaderCart } from '../../modules/updateHeader'
 import { parseStorage } from '../../modules/updateStorage'
-import { addQueryParams} from '../../modules/goodsFilter'
+import { addQueryParams, filterGoods} from '../../modules/goodsFilter'
 import { isQueryParamsExist } from '../../modules/queryParams'
+import { initFilterSlider } from '../../modules/priceSlider'
 
 export const PRODUCTS = products.products
 
@@ -16,6 +17,7 @@ export type productData = {
   stock: number,
   brand: string,
   category: string,
+  latinCategory: string
   thumbnail: string,
   images:  string[]
 }
@@ -60,16 +62,16 @@ function createAsideBlock () :string {
                   <label for="bike" class="filter__label category__label">Велосипеды</label>
               </li>
               <li class="filter__list-item category__list-item">
-                  <input id="Childbikee" type="checkbox" data-name='category' class="filter__target filter__input category__input">
-                  <label for="Childbike" class="filter__label category__label">Детские велосипеды</label>
+                  <input id="childbike" type="checkbox" data-name='category' class="filter__target filter__input category__input">
+                  <label for="childbike" class="filter__label category__label">Детские велосипеды</label>
               </li>
               <li class="filter__list-item category__list-item">
                   <input id="tricycle" type="checkbox" data-name='category' class="filter__target filter__input category__input">
                   <label for="tricycle" class="filter__label category__label">Трехколесные велосипеды</label>
               </li>
               <li class="filter__list-item category__list-item">
-                  <input id="bike rack" type="checkbox" data-name='category' class="filter__target filter__input category__input">
-                  <label for="bike rack" class="filter__label category__label">Велобагажники</label>
+                  <input id="bikerack" type="checkbox" data-name='category' class="filter__target filter__input category__input">
+                  <label for="bikerack" class="filter__label category__label">Велобагажники</label>
               </li>
               <li class="filter__list-item category__list-item">
                   <input id="accessory" type="checkbox" data-name='category' class="filter__target filter__input category__input">
@@ -81,8 +83,8 @@ function createAsideBlock () :string {
           <h3 class="form-title">Бренд</h3>
           <ul class="filter__list brand__list">
               <li class="filter__list-item brand__list-item">
-                  <input id="Skill Bike" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
-                  <label for="Skill Bike" class="filter__label brand__label">Skill Bike</label>
+                  <input id="SkillBike" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
+                  <label for="SkillBike" class="filter__label brand__label">Skill Bike</label>
               </li>
               <li class="filter__list-item brand__list-item">
                   <input id="KUPI_LA" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
@@ -101,12 +103,12 @@ function createAsideBlock () :string {
                   <label for="MAXISCOO" class="filter__label brand__label">MAXISCOO</label>
               </li>
               <li class="filter__list-item category__list-item">
-                  <input id="Tech Team" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
-                  <label for="Tech Team" class="filter__label brand__label">Tech Team</label>
+                  <input id="TechTeam" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
+                  <label for="TechTeam" class="filter__label brand__label">Tech Team</label>
               </li>
               <li class="filter__list-item category__list-item">
-                  <input id="Safari proff" type="checkbox" data-name='brand'  class="filter__target filter__input brand__input">
-                  <label for="Safari proff" class="filter__label brand__label">Safari proff</label>
+                  <input id="Safariproff" type="checkbox" data-name='brand'  class="filter__target filter__input brand__input">
+                  <label for="Safariproff" class="filter__label brand__label">Safari proff</label>
               </li>
               <li class="filter__list-item category__list-item">
                   <input id="ZIGZAG" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
@@ -137,16 +139,16 @@ function createAsideBlock () :string {
                   <label for="Вело-рай" class="filter__label brand__label">Вело-рай</label>
               </li>
               <li class="filter__list-item category__list-item">
-                  <input id="Mea Signum" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
-                  <label for="Mea Signum" class="filter__label brand__label">Mea Signum</label>
+                  <input id="MeaSignum" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
+                  <label for="MeaSignum" class="filter__label brand__label">Mea Signum</label>
               </li>
               <li class="filter__list-item category__list-item">
                   <input id="Дымовой" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
                   <label for="Дымовой" class="filter__label brand__label">Дымовой</label>
               </li>
               <li class="filter__list-item category__list-item">
-                  <input id="KING TONY WB" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
-                  <label for="KING TONY WB" class="filter__label brand__label">KING TONY WB</label>
+                  <input id="KINGTONYWB" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
+                  <label for="KINGTONYWB" class="filter__label brand__label">KING TONY WB</label>
               </li>
           </ul>
       </fieldset>
@@ -241,7 +243,6 @@ function createAsideBlock () :string {
 
 export function renderCatalog(/* params? : string */): void {
     const mainContent = document.querySelector('.main-content .container')
-    const queryParams = isQueryParamsExist();
 
   if (mainContent) {
     const productsWrapepr =  document.createElement('div')
@@ -251,46 +252,60 @@ export function renderCatalog(/* params? : string */): void {
     mainContent.innerHTML = createAsideBlock()
     const catalowWrapper = document.querySelector('.catalog__wrapper')
     if (catalowWrapper !== null)  catalowWrapper.append(productsWrapepr)
-    productsWrapepr.innerHTML = ''
-
+      productsWrapepr.innerHTML = ''
+      const queryParams = isQueryParamsExist();
 
       if (queryParams) {
-       
-      /* return */
-    } else {
+        const arrayForRender = filterGoods(queryParams);
+        if (arrayForRender) {
+          productsWrapepr.innerHTML = '';
+          arrayForRender.forEach((product) => {
+            if (productsWrapepr) {
+              const productCart = isProductInStorage(product.id)
+                ? createProductCart(product, 'Удалить из корзины')
+                : createProductCart(product, 'Добавить в корзину');
+              if (productsWrapepr) productsWrapepr.innerHTML += productCart;
+            }
+          });
+        }
+        initFilterSlider({
+          sliderRangeSel: '.price__range-input input',
+          sliderInputSel: '.price-input input',
+          sliderProgressSel: '.price-slider .progress',
+          gap: 200,
+        });
+        initFilterSlider({
+          sliderRangeSel: '.stock__range-input input',
+          sliderInputSel: '.stock-input input',
+          sliderProgressSel: '.stock-slider .progress',
+          gap: 10,
+        });
+      } else {
+          console.log("else");
       Object.values(PRODUCTS).forEach((product) => {
         const productCart = isProductInStorage(product.id) ? createProductCart(product, 'Удалить из корзины') : createProductCart(product, 'Добавить в корзину')
-         
+
         if(productsWrapepr) productsWrapepr.innerHTML += productCart
       })
     }
       productsWrapepr.addEventListener('click', onProductHandler)
 
       const filterForm = document.querySelector('.filter-form');
-      filterForm?.addEventListener('change', (e: Event) => {
-          addQueryParams(e);
-        //   renderCatalog();
-       /*  if (array) {
-          productsWrapepr.innerHTML = '';
-          array.forEach((product) => {
-            if (productsWrapepr) {
-              const productCart = createProductCart(product);
-              if (productsWrapepr) productsWrapepr.innerHTML += productCart;
-            }
-          });
-        } */
-      });
-
+      if (filterForm) {
+        filterForm.addEventListener('change', (e: Event) => {
+            addQueryParams(e);
+            renderCatalog();
+        });
+      }
       const pagOptions = localStorage.getItem('pagination') ? parseStorage("pagination"): [{ rows: 3, page: 0 }];
       localStorage.setItem('pagination', JSON.stringify(pagOptions));
        updateHeaderCart();
   }
-
 }
 
 function isProductInStorage(id : number | string) : boolean {
   let status = false
-  JSON.parse(localStorage.getItem('cart') as string).forEach((element : item) => {   
+  JSON.parse(localStorage.getItem('cart') as string).forEach((element : item) => {
     if(+id === +element.id) {
       status = true
     }
@@ -306,8 +321,8 @@ function toggleProductBtn (btn: HTMLElement) {
     btn.innerHTML = 'Добавить в корзину'
   }
   if(id && isProductInStorage(id)) {
-    btn.innerHTML = 'Удалить из корзины'    
-  }   
+    btn.innerHTML = 'Удалить из корзины'
+  }
 
 
 }
@@ -317,7 +332,7 @@ export function onProductHandler(e:Event) {
   if(e.target) {
     if((e.target as HTMLElement).tagName == 'BUTTON' ) {
       const id = (e.target as HTMLElement).getAttribute('data-id')
-      if(id && !isProductInStorage(id)) addToProductToStorage(id as string)       
+      if(id && !isProductInStorage(id)) addToProductToStorage(id as string)
         toggleProductBtn(e.target as HTMLElement)
         updateHeaderCart();
     }
