@@ -71,9 +71,7 @@ const validateForm = () => {
           validator: (value) => {
             if (typeof value === 'string') {
               const arr = value.split(' ');
-              console.log(arr);
               const newArr = arr.filter((item) => item.length >= 5);
-              console.log(newArr);
               if (arr.length > 3 && newArr) {
                 return true;
               }

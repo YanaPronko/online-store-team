@@ -3,7 +3,9 @@ import { deleteProductOnMain } from '../../modules/deleteGoods'
 import { renderProducts } from '../../modules/renderProducts'
 import { updateHeaderCart } from '../../modules/updateHeader'
 import { parseStorage } from '../../modules/updateStorage'
-import { addQueryParams} from '../../modules/goodsFilter'
+import { addQueryParams } from '../../modules/goodsFilter'
+// import { isQueryParamsExist } from '../../modules/queryParams'
+
 
 export const PRODUCTS = products.products
 
@@ -156,20 +158,20 @@ function createAsideBlock () :string {
           <div class="price-input">
               <div class="field">
                   <span>Min</span>
-                  <input type="number" class="filter__target input-min" value="500">
+                  <input type="number" class="filter__target input-min" value="0">
               </div>
               <div class="separator">-</div>
               <div class="field">
                   <span>Max</span>
-                  <input type="number" class="filter__target input-max" value="1500">
+                  <input type="number" class="filter__target input-max" value="2000">
               </div>
           </div>
           <div class="price-slider">
               <div class="progress"></div>
           </div>
           <div class="price__range-input">
-              <input type="range" class="filter__target range-min" min="0" max="2000" value="500" step="50">
-              <input type="range" class="filter__target range-max" min="0" max="2000" value="1500" step="50">
+              <input type="range" class="filter__target range-min" min="0" max="2000" value="0" step="50">
+              <input type="range" class="filter__target range-max" min="0" max="2000" value="2000" step="50">
           </div>
       </fieldset>
       <fieldset class="form__stock">
@@ -254,19 +256,6 @@ export function renderCatalog(/* params? : string */): void {
         productsWrapepr.innerHTML = ''
         renderProducts();
 
-        // const queryParams = isQueryParamsExist();
-
-        /* if (queryParams) {
-            renderProducts();
-        } else {
-            Object.values(PRODUCTS).forEach((product) => {
-            const productCart = isProductInStorage(product.id)
-            ? createProductCart(product, 'Удалить из корзины')
-            : createProductCart(product, 'Добавить в корзину');
-            if (productsWrapepr) productsWrapepr.innerHTML += productCart;
-            });
-        } */
-
         productsWrapepr.addEventListener('click', onProductHandler)
 
         const filterForm = document.querySelector('.filter-form');
@@ -284,11 +273,13 @@ export function renderCatalog(/* params? : string */): void {
 
 export function isProductInStorage(id : number | string) : boolean {
   let status = false
-  JSON.parse(localStorage.getItem('cart') as string).forEach((element : item) => {
-    if(+id === +element.id) {
-      status = true
-    }
-  });
+  if(localStorage.getItem('cart')) {
+    JSON.parse(localStorage.getItem('cart') as string).forEach((element : item) => {
+      if(+id === +element.id) {
+        status = true
+      }
+    });
+  }
   return status
 }
 
