@@ -15,7 +15,6 @@ export function closeModal() {
 const createModal = () => {
   const scroll = calcScroll();
 
-
   modal.classList.add('modal', 'slideInDown');
   modal.setAttribute('id', 'exampleModal2');
   modal.innerHTML = `

@@ -2,6 +2,7 @@ import JustValidate, { Rules } from 'just-validate';
 import { modal, closeModal } from './modal';
 import { clearCart } from './clearCart';
 import { renderCart } from '../containers/cart/cart';
+import { renderCatalog } from '../containers/catalog/catalog';
 
 
 const validateForm = () => {
@@ -149,7 +150,7 @@ const validateForm = () => {
           clearCart();
           closeModal();
           renderCart();
-          // redirect();
+          renderCatalog();
         }, 5000);
       });
   }
