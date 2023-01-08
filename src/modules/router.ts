@@ -21,34 +21,34 @@ const _urlROutes: urlObject = {
   404: {
     template: '/404.html',
     render: renderCatalog,
-    title:'error',   
+    title:'error',
   },
   "/": {
     template: '/main.html',
     render: renderCatalog,
-    title:"Main",   
+    title:"Main",
   },
   "/cart": {
-    template: '/cart.html',  
+    template: '/cart.html',
     render: renderCart,
-    title:"cart",   
+    title:"cart",
   },
   "/product": {
-    template: '/product.html',  
+    template: '/product.html',
     render: renderProductPage,
-    title:"cart",   
+    title:"cart",
   },
 }
 
-document.querySelectorAll('.rout-link').forEach(element => {   
+document.querySelectorAll('.rout-link').forEach(element => {
   element.addEventListener('click', linkHandler )
 });
 
-function linkHandler (e:Event) {   
-  e.preventDefault()     
+function linkHandler (e:Event) {
+  e.preventDefault()
   const id =  (e.currentTarget as HTMLElement).getAttribute('data-id');
-  if(e.currentTarget && id !== null ) 
-  TARGET_ID = +id 
+  if(e.currentTarget && id !== null )
+  TARGET_ID = +id
 
 
   urlRoute(e);
@@ -69,7 +69,7 @@ const ifProductUrlHandler = (location:string) => {
   return location
 }
 
-const urlLocationHandler = async () => {   
+const urlLocationHandler = async () => {
   let location:string = ifProductUrlHandler(window.location.pathname);
 
   if(location.length == 0) {
@@ -79,10 +79,10 @@ const urlLocationHandler = async () => {
   if(_urlROutes[location] === undefined) {
     route =  _urlROutes[404]
   }
-  
-  TARGET_ID === undefined ?  route.render() : (route.render(TARGET_ID),  TARGET_ID = undefined) 
-  
-  document.querySelectorAll('.rout-link').forEach(element => {     
+
+  TARGET_ID === undefined ?  route.render() : (route.render(TARGET_ID),  TARGET_ID = undefined)
+
+  document.querySelectorAll('.rout-link').forEach(element => {
     element.addEventListener('click', linkHandler )
   });
 }

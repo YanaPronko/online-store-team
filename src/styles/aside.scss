@@ -120,6 +120,10 @@ input[type="number"]::-webkit-inner-spin-button {
   border-radius: 5px;
   background: $color-primary-additional;
 }
+.stock-slider .progress{
+  left: 0;
+  right: 0;
+}
 .price__range-input,
 .stock__range-input {
   position: relative;
