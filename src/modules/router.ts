@@ -70,8 +70,7 @@ const ifProductUrlHandler = (location:string) => {
 }
 
 const urlLocationHandler = async () => {   
-  let location:string = ifProductUrlHandler(window.location.pathname);
-
+  let location:string = ifProductUrlHandler(window.location.pathname); 
   if(location.length == 0) {
     location = '/'
   }

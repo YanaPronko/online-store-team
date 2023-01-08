@@ -3,6 +3,7 @@ import { initProductSlider } from "./modules/productSlider";
 import { initFilterSlider } from "./modules/priceSlider";
 import "./modules/router";
 import './containers/cart/cart';
+import { onBuyNowHandler, onProductHandler } from "./containers/catalog/catalog";
 
 document.addEventListener("DOMContentLoaded", () => {
   initProductSlider();
@@ -16,4 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
     sliderInputSel: '.stock-input input',
     sliderProgressSel: '.stock-slider .progress',
   });
+  document.querySelector('.main-content')?.addEventListener('click', onProductHandler)
+  document.querySelector('.main-content')?.addEventListener('click', onBuyNowHandler)
 });

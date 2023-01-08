@@ -1,7 +1,9 @@
 import products from '../../files/products.json'
 import { deleteProductOnMain } from '../../modules/deleteGoods'
+import modal from "../../modules/modal";
 import { updateHeaderCart } from '../../modules/updateHeader'
 import { parseStorage } from '../../modules/updateStorage'
+import { renderCart } from '../cart/cart'
 
 export const PRODUCTS = products.products
 
@@ -259,7 +261,7 @@ export function renderCatalog(params? : string) : void {
         if(productsWrapepr) productsWrapepr.innerHTML += productCart
       })
     }
-      productsWrapepr.addEventListener('click', onProductHandler)
+      // productsWrapepr.addEventListener('click', onProductHandler)
 
       const pagOptions = localStorage.getItem('pagination') ? parseStorage("pagination"): [{ rows: 3, page: 0 }];
       localStorage.setItem('pagination', JSON.stringify(pagOptions));
@@ -268,13 +270,16 @@ export function renderCatalog(params? : string) : void {
 
 }
 
-function isProductInStorage(id : number | string) : boolean {
+export function isProductInStorage(id : number | string) : boolean {
   let status = false
-  JSON.parse(localStorage.getItem('cart') as string).forEach((element : item) => {   
-    if(+id === +element.id) {
-      status = true
-    }
-  });
+  if(localStorage.getItem('cart')) {
+    JSON.parse(localStorage.getItem('cart') as string).forEach((element : item) => {   
+      if(+id === +element.id) {
+        status = true
+      }
+    });
+  }
+ 
   return status
 }
 
@@ -285,7 +290,7 @@ function toggleProductBtn (btn: HTMLElement) {
     deleteProductOnMain(id)
     btn.innerHTML = 'Добавить в корзину'
   }
-  if(id && isProductInStorage(id)) {
+  if(id && isProductInStorage(id)) {   
     btn.innerHTML = 'Удалить из корзины'    
   }   
 
@@ -295,17 +300,28 @@ function toggleProductBtn (btn: HTMLElement) {
 
 export function onProductHandler(e:Event) {
   if(e.target) {
-    if((e.target as HTMLElement).tagName == 'BUTTON' ) {
+    if((e.target as HTMLElement).className == 'btn product-btn' || (e.target as HTMLElement).className == 'btn add-btn') {    
       const id = (e.target as HTMLElement).getAttribute('data-id')
-      if(id && !isProductInStorage(id)) addToProductToStorage(id as string)       
+      if(id && !isProductInStorage(id)) addToProductToStorage(id as string)     
         toggleProductBtn(e.target as HTMLElement)
         updateHeaderCart();
     }
   }
 }
+export function onBuyNowHandler(e:Event) {
+  if(e.target) {
+    if((e.target as HTMLElement).className == 'btn buy-btn' ) {
+      const id = (e.target as HTMLElement).getAttribute('data-id')     
+      if(id && !isProductInStorage(id)) {
+        addToProductToStorage(id as string) 
+      }     
+      renderCart();
+      modal() 
+    }
+  }
+}
 
-
-function addToProductToStorage(id: string) {
+function addToProductToStorage(id: string) { 
   const item: item = {
     id: id,
     count: 1,
@@ -314,15 +330,4 @@ function addToProductToStorage(id: string) {
    const cart: item[] = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart') as string) : [];
    cart.push(item);
     localStorage.setItem('cart', JSON.stringify(cart));
-
- /* if (localStorage.getItem('cart') === null) {
-   const cart:item[] = []
-   cart.push(item);
-   localStorage.setItem('cart', JSON.stringify(cart))
- }
- if(localStorage.getItem('cart') !== null) {
-   const cart = JSON.parse((localStorage.getItem("cart") as string))
-   cart.push(item);
-   localStorage.setItem('cart', JSON.stringify(cart))
- } */
 }

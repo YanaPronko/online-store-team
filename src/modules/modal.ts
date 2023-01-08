@@ -6,7 +6,6 @@ export function closeModal() {
   const element = document.querySelector('.modal');
   if (element) {
     element.classList.remove('slideInDown');
-    element.classList.add('slideInUp');
     element.remove();
   }
   document.body.style.overflow = '';
