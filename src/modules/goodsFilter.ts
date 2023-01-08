@@ -32,9 +32,38 @@ export const addQueryParams = (e: Event) => {
   }
 }
 
+const changeRangeProgress = (
+  val: string[],
+  minRange: HTMLInputElement | null,
+  maxRange: HTMLInputElement | null,
+  minInput: HTMLInputElement | null,
+  maxInput: HTMLInputElement | null,
+  range: HTMLElement | null,
+  gap: number
+) => {
+  const valueGap = gap;
+  const minVal = parseInt(val[0]),
+    maxVal = parseInt(val[1]);
+
+  if (maxVal - minVal < valueGap) {
+    if (minRange) minRange.value = `${maxVal - valueGap}`;
+    if (maxRange) maxRange.value = `${minVal + valueGap}`;
+  } else {
+    if (minInput) minInput.value = `${minVal}`;
+    if (maxInput) maxInput.value = `${maxVal}`;
+    if (range && minRange && maxRange) {
+      range.style.left = (minVal / +minRange.max) * 100 + '%';
+      range.style.right = 100 - (maxVal / +maxRange.max) * 100 + '%';
+    }
+  }
+};
+
 const addCheckMark = (brands: string[], categories:string[], price:string[], stock:string[]) => {
   const brandsID = getInputsID('.brand__input');
   const categoriesID = getInputsID('.category__input');
+  const rangePrice = document.querySelector<HTMLElement>('.price-slider .progress');
+  const rangeStock = document.querySelector<HTMLElement>('.stock-slider .progress');
+
 
   const minPriceInput = document.querySelector<HTMLInputElement>('.price-input .input-min');
   const maxPriceInput = document.querySelector<HTMLInputElement>('.price-input .input-max');
@@ -58,15 +87,20 @@ const addCheckMark = (brands: string[], categories:string[], price:string[], sto
   if (maxStockInput) maxStockInput.value = stock[1];
   if (maxStockRange) maxStockRange.value = stock[1];
 
+  changeRangeProgress(price, minPriceRange, maxPriceRange, minPriceInput, maxPriceInput, rangePrice, 200);
+  changeRangeProgress(stock, minStockRange, maxStockRange, minStockInput, maxStockInput, rangeStock, 10);
+
   const checkedBrandID = brandsID.filter((brand) => brands.includes(brand));
-  const checkedCategoryID = categoriesID.filter(category => categories.includes(category));
+  const checkedCategoryID = categoriesID.filter((category) => categories.includes(category));
 
   checkedBrandID.forEach((id) => {
-    const input = document.getElementById(`${id}`) as HTMLInputElement;
+    console.log(id);
+    const input = document.getElementById(`${id.toUpperCase()}`) as HTMLInputElement;
     if (input) input.checked = true;
   });
+
   checkedCategoryID.forEach((id) => {
-    const input = document.getElementById(`${id}`) as HTMLInputElement;
+    const input = document.getElementById(`${id.trim().toUpperCase().split(' ').join('')}`) as HTMLInputElement;
     if (input) input.checked = true;
   });
 }
@@ -78,7 +112,6 @@ export const filterGoods = (queryObj: { [key: string]: string }) => {
   const stock = queryObj.stock.split('%2C').filter((item) => item);
 
   addCheckMark(brands, categories, price, stock);
-  console.log({ categories, brands, price, stock });
 
   const filtered: productData[] = PRODUCTS.filter((product: productData) => {
     const brandFilter = !brands.length || brands.includes(product.brand.trim().toUpperCase().split(' ').join(''));

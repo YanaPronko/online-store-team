@@ -12,7 +12,7 @@ export const initFilterSlider = ({ sliderRangeSel, sliderInputSel, sliderProgres
   const valueGap = gap;
 
   valueInput.forEach((input) => {
-    input.addEventListener('input', (e) => {
+    input.addEventListener("input", (e) => {
       const target = e.target;
       const minValue = parseInt(valueInput[0].value),
         maxValue = parseInt(valueInput[1].value);
@@ -35,7 +35,7 @@ export const initFilterSlider = ({ sliderRangeSel, sliderInputSel, sliderProgres
   });
 
   rangeInput.forEach((input) => {
-    input.addEventListener('input', (e) => {
+    input.addEventListener("input", (e) => {
       const target = e.target;
       const minVal = parseInt(rangeInput[0].value),
         maxVal = parseInt(rangeInput[1].value);

@@ -1,9 +1,11 @@
 import { isQueryParamsExist } from "./queryParams";
 import { filterGoods } from "./goodsFilter";
-import { createProductCart, isProductInStorage, PRODUCTS} from "../containers/catalog/catalog"
+import { createProductCart, isProductInStorage, PRODUCTS } from "../containers/catalog/catalog"
+
 
 export const renderProducts = () => {
   const productsWrapepr = document.querySelector('.goods__wrapper');
+
   const queryParams = isQueryParamsExist();
   if (queryParams) {
     const arrayForRender = filterGoods(queryParams);

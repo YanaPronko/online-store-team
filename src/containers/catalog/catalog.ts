@@ -60,24 +60,24 @@ function createAsideBlock () :string {
           <h3 class="form-title">Категория</h3>
           <ul class="filter__list category__list">
               <li class="filter__list-item category__list-item">
-                  <input id="bike" type="checkbox" data-name='category' class="filter__target filter__input category__input">
-                  <label for="bike" class="filter__label category__label">Велосипеды</label>
+                  <input id="BIKE" type="checkbox" data-name='category' class="filter__target filter__input category__input">
+                  <label for="BIKE" class="filter__label category__label">Велосипеды</label>
               </li>
               <li class="filter__list-item category__list-item">
-                  <input id="childbike" type="checkbox" data-name='category' class="filter__target filter__input category__input">
-                  <label for="childbike" class="filter__label category__label">Детские велосипеды</label>
+                  <input id="CHILDBIKE" type="checkbox" data-name='category' class="filter__target filter__input category__input">
+                  <label for="CHILDBIKE" class="filter__label category__label">Детские велосипеды</label>
               </li>
               <li class="filter__list-item category__list-item">
-                  <input id="tricycle" type="checkbox" data-name='category' class="filter__target filter__input category__input">
-                  <label for="tricycle" class="filter__label category__label">Трехколесные велосипеды</label>
+                  <input id="TRICYCLE" type="checkbox" data-name='category' class="filter__target filter__input category__input">
+                  <label for="TRICYCLE" class="filter__label category__label">Трехколесные велосипеды</label>
               </li>
               <li class="filter__list-item category__list-item">
-                  <input id="bikerack" type="checkbox" data-name='category' class="filter__target filter__input category__input">
-                  <label for="bikerack" class="filter__label category__label">Велобагажники</label>
+                  <input id="BIKERACK" type="checkbox" data-name='category' class="filter__target filter__input category__input">
+                  <label for="BIKERACK" class="filter__label category__label">Велобагажники</label>
               </li>
               <li class="filter__list-item category__list-item">
-                  <input id="accessory" type="checkbox" data-name='category' class="filter__target filter__input category__input">
-                  <label for="accessory" class="filter__label category__label">Аксессуары</label>
+                  <input id="ACCESSORY" type="checkbox" data-name='category' class="filter__target filter__input category__input">
+                  <label for="ACCESSORY" class="filter__label category__label">Аксессуары</label>
               </li>
           </ul>
       </fieldset>
@@ -85,8 +85,8 @@ function createAsideBlock () :string {
           <h3 class="form-title">Бренд</h3>
           <ul class="filter__list brand__list">
               <li class="filter__list-item brand__list-item">
-                  <input id="SkillBike" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
-                  <label for="SkillBike" class="filter__label brand__label">Skill Bike</label>
+                  <input id="SKILBIKE" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
+                  <label for="SKILBIKE" class="filter__label brand__label">Skill Bike</label>
               </li>
               <li class="filter__list-item brand__list-item">
                   <input id="KUPI_LA" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
@@ -105,48 +105,48 @@ function createAsideBlock () :string {
                   <label for="MAXISCOO" class="filter__label brand__label">MAXISCOO</label>
               </li>
               <li class="filter__list-item category__list-item">
-                  <input id="TechTeam" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
-                  <label for="TechTeam" class="filter__label brand__label">Tech Team</label>
+                  <input id="TECHTEAM" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
+                  <label for="TECHTEAM" class="filter__label brand__label">Tech Team</label>
               </li>
               <li class="filter__list-item category__list-item">
-                  <input id="Safariproff" type="checkbox" data-name='brand'  class="filter__target filter__input brand__input">
-                  <label for="Safariproff" class="filter__label brand__label">Safari proff</label>
+                  <input id="SAFARIPROFF" type="checkbox" data-name='brand'  class="filter__target filter__input brand__input">
+                  <label for="SAFARIPROFF" class="filter__label brand__label">Safari proff</label>
               </li>
               <li class="filter__list-item category__list-item">
                   <input id="ZIGZAG" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
                   <label for="ZIGZAG" class="filter__label brand__label">ZIGZAG</label>
               </li>
               <li class="filter__list-item category__list-item">
-                  <input id="City-Ride" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
-                  <label for="City-Ride" class="filter__label brand__label">City-Ride</label>
+                  <input id="CITYRIDE" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
+                  <label for="CITYRIDE" class="filter__label brand__label">City-Ride</label>
               </li>
               <li class="filter__list-item category__list-item">
                   <input id="LAMBORGHINI" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
                   <label for="LAMBORGHINI" class="filter__label brand__label">LAMBORGHINI</label>
               </li>
               <li class="filter__list-item category__list-item">
-                  <input id="Sundays" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
-                  <label for="Sundays" class="filter__label brand__label">Sundays</label>
+                  <input id="SUNDAYS" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
+                  <label for="SUNDAYS" class="filter__label brand__label">Sundays</label>
               </li>
               <li class="filter__list-item category__list-item">
-                  <input id="Peruzzo" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
-                  <label for="Peruzzo" class="filter__label brand__label">Peruzzo</label>
+                  <input id="PERUZZO" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
+                  <label for="PERUZZO" class="filter__label brand__label">Peruzzo</label>
               </li>
               <li class="filter__list-item category__list-item">
                   <input id="LUX" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
                   <label for="LUX" class="filter__label brand__label">LUX</label>
               </li>
               <li class="filter__list-item category__list-item">
-                  <input id="Вело-рай" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
-                  <label for="Вело-рай" class="filter__label brand__label">Вело-рай</label>
+                  <input id="ВЕЛОРАЙ" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
+                  <label for="ВЕЛОРАЙ" class="filter__label brand__label">Вело-рай</label>
               </li>
               <li class="filter__list-item category__list-item">
-                  <input id="MeaSignum" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
-                  <label for="MeaSignum" class="filter__label brand__label">Mea Signum</label>
+                  <input id="MEASIGNUM" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
+                  <label for="MEASIGNUM" class="filter__label brand__label">Mea Signum</label>
               </li>
               <li class="filter__list-item category__list-item">
-                  <input id="Дымовой" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
-                  <label for="Дымовой" class="filter__label brand__label">Дымовой</label>
+                  <input id="ДЫМОВОЙ" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
+                  <label for="ДЫМОВОЙ" class="filter__label brand__label">Дымовой</label>
               </li>
               <li class="filter__list-item category__list-item">
                   <input id="KINGTONYWB" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
