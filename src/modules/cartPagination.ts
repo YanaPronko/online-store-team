@@ -13,7 +13,7 @@ export const cartPagination = (arr: goodInCart[]) => {
   url.searchParams.set('page', `${currentPage + 1}`);
   url.searchParams.set('row', `${rows}`);
   history.pushState("", "", url);
-  
+
   const totalPages = Math.ceil(arrayForPagination.length / rows);
   localStorage.setItem("totalPages", `${totalPages}`);
   const start = rows * currentPage;

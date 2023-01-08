@@ -10,6 +10,7 @@
         "stock": 94,
         "brand": "Skill Bike",
         "category": "велосипед",
+        "latinCategory": "bike",
         "thumbnail": "../assets/images/list/main/1.jpg",
         "images": ["../assets/images/list/mini/1.1.jpg", "../assets/images/list/mini/1.2.jpg"]
       },
@@ -22,6 +23,7 @@
         "stock": 18,
         "brand": "KUPI_LA",
         "category": "велосипед",
+        "latinCategory": "bike",
         "thumbnail": "../assets/images/list/main/2.jpg",
         "images": ["../assets/images/list/mini/2.1.jpg", "../assets/images/list/mini/2.2.jpg"]
       },
@@ -34,6 +36,7 @@
         "stock": 30,
         "brand": "BMW",
         "category": "велосипед",
+        "latinCategory": "bike",
         "thumbnail": "../assets/images/list/main/3.jpg",
         "images": ["../assets/images/list/mini/3.1.jpg", "../assets/images/list/mini/3.2.jpg"]
       },
@@ -46,6 +49,7 @@
         "stock": 24,
         "brand": "TELSS",
         "category": "велосипед",
+        "latinCategory": "bike",
         "thumbnail": "../assets/images/list/main/4.jpg",
         "images": ["../assets/images/list/mini/4.1.jpg", "../assets/images/list/mini/4.2.jpg"]
       },
@@ -58,6 +62,7 @@
         "stock": 13,
         "brand": "BMW",
         "category": "велосипед",
+        "latinCategory": "bike",
         "thumbnail": "../assets/images/list/main/5.jpg",
         "images": ["../assets/images/list/mini/5.1.jpg", "../assets/images/list/mini/5.2.jpg"]
       },
@@ -70,6 +75,7 @@
         "stock": 48,
         "brand": "MAXISCOO",
         "category": "велосипед детский",
+        "latinCategory": "Childbike",
         "thumbnail": "../assets/images/list/main/6.jpg",
         "images": ["../assets/images/list/mini/6.1.jpg", "../assets/images/list/mini/6.2.jpg"]
       },
@@ -82,6 +88,7 @@
         "stock": 64,
         "brand": "Tech Team",
         "category": "велосипед детский",
+        "latinCategory": "Childbike",
         "thumbnail": "../assets/images/list/main/7.jpg",
         "images": ["../assets/images/list/mini/7.1.jpg", "../assets/images/list/mini/7.2.jpg"]
       },
@@ -94,6 +101,7 @@
         "stock": 55,
         "brand": "Safari proff",
         "category": "велосипед детский",
+        "latinCategory": "Childbike",
         "thumbnail": "../assets/images/list/main/8.jpg",
         "images": ["../assets/images/list/mini/8.1.jpg", "../assets/images/list/mini/8.2.jpg"]
       },
@@ -106,6 +114,7 @@
         "stock": 41,
         "brand": "ZIGZAG",
         "category": "велосипед детский",
+        "latinCategory": "Childbike",
         "thumbnail": "../assets/images/list/main/9.jpg",
         "images": ["../assets/images/list/mini/9.1.jpg", "../assets/images/list/mini/9.2.jpg"]
       },
@@ -118,6 +127,7 @@
         "stock": 33,
         "brand": "City-Ride",
         "category": "велосипед детский",
+        "latinCategory": "Childbike",
         "thumbnail": "../assets/images/list/main/10.jpg",
         "images": ["../assets/images/list/mini/10.1.jpg", "../assets/images/list/mini/10.2.jpg"]
       },
@@ -130,6 +140,7 @@
         "stock": 14,
         "brand": "LAMBORGHINI",
         "category": "велосипед трехколесный",
+        "latinCategory": "tricycle",
         "thumbnail": "../assets/images/list/main/11.jpg",
         "images": ["../assets/images/list/mini/11.1.jpg", "../assets/images/list/mini/11.2.jpg"]
       },
@@ -142,6 +153,7 @@
         "stock": 18,
         "brand": "Safari proff",
         "category": "велосипед трехколесный",
+        "latinCategory": "tricycle",
         "thumbnail": "../assets/images/list/main/12.jpg",
         "images": ["../assets/images/list/mini/12.1.jpg", "../assets/images/list/mini/12.2.jpg"]
       },
@@ -154,6 +166,7 @@
         "stock": 27,
         "brand": "Tech Team",
         "category": "велосипед трехколесный",
+        "latinCategory": "tricycle",
         "thumbnail": "../assets/images/list/main/13.jpg",
         "images": ["../assets/images/list/mini/13.1.jpg", "../assets/images/list/mini/13.2.jpg"]
       },
@@ -166,6 +179,7 @@
         "stock": 15,
         "brand": "MAXISCOO",
         "category": "велосипед трехколесный",
+        "latinCategory": "tricycle",
         "thumbnail": "../assets/images/list/main/14.jpg",
         "images": ["../assets/images/list/mini/14.1.jpg", "../assets/images/list/mini/14.2.jpg"]
       },
@@ -178,6 +192,7 @@
         "stock": 31,
         "brand": "Sundays",
         "category": "велосипед трехколесный",
+        "latinCategory": "tricycle",
         "thumbnail": "../assets/images/list/main/15.jpg",
         "images": ["../assets/images/list/mini/15.1.jpg", "../assets/images/list/mini/15.2.jpg"]
       },
@@ -190,6 +205,7 @@
         "stock": 11,
         "brand": "Peruzzo",
         "category": "велобагажник",
+        "latinCategory": "bike rack",
         "thumbnail": "../assets/images/list/main/16.jpg",
         "images": ["../assets/images/list/mini/16.1.jpg", "../assets/images/list/mini/16.2.jpg"]
       },
@@ -202,6 +218,7 @@
         "stock": 5,
         "brand": "LUX",
         "category": "велобагажник",
+        "latinCategory": "bike rack",
         "thumbnail": "../assets/images/list/main/17.jpg",
         "images": ["../assets/images/list/mini/17.1.jpg", "../assets/images/list/mini/17.2.jpg"]
       },
@@ -214,6 +231,7 @@
         "stock": 45,
         "brand": "Peruzzo",
         "category": "велобагажник",
+        "latinCategory": "bike rack",
         "thumbnail": "../assets/images/list/main/18.jpg",
         "images": ["../assets/images/list/mini/18.1.jpg", "../assets/images/list/mini/18.2.jpg"]
       },
@@ -226,6 +244,7 @@
         "stock": 5,
         "brand": "Peruzzo",
         "category": "велобагажник",
+        "latinCategory": "bike rack",
         "thumbnail": "../assets/images/list/main/19.jpg",
         "images": ["../assets/images/list/mini/19.1.jpg", "../assets/images/list/mini/19.2.jpg"]
       },
@@ -238,6 +257,7 @@
         "stock": 12,
         "brand": "Peruzzo",
         "category": "велобагажник",
+        "latinCategory": "bike rack",
         "thumbnail": "../assets/images/list/main/20.jpg",
         "images": ["../assets/images/list/mini/20.1.jpg", "../assets/images/list/mini/20.2.jpg"]
       },
@@ -250,6 +270,7 @@
         "stock": 22,
         "brand": "Вело-рай",
         "category": "аксессуары",
+        "latinCategory": "accessory",
         "thumbnail": "../assets/images/list/main/21.jpg",
         "images": ["../assets/images/list/mini/21.1.jpg", "../assets/images/list/mini/21.2.jpg"]
       },
@@ -262,6 +283,7 @@
         "stock": 19,
         "brand": "STELS",
         "category": "аксессуары",
+        "latinCategory": "accessory",
         "thumbnail": "../assets/images/list/main/22.jpg",
         "images": ["../assets/images/list/mini/22.1.jpg", "../assets/images/list/mini/22.2.jpg"]
       },
@@ -274,6 +296,7 @@
         "stock": 19,
         "brand": "Mea Signum",
         "category": "аксессуары",
+        "latinCategory": "accessory",
         "thumbnail": "../assets/images/list/main/23.jpg",
         "images": ["../assets/images/list/mini/23.1.jpg", "../assets/images/list/mini/23.2.jpg"]
       },
@@ -286,6 +309,7 @@
         "stock": 53,
         "brand": "Дымовой",
         "category": "аксессуары",
+        "latinCategory": "accessory",
         "thumbnail": "../assets/images/list/main/24.jpg",
         "images": ["../assets/images/list/mini/24.1.jpg", "../assets/images/list/mini/24.2.jpg"]
       },
@@ -298,6 +322,7 @@
         "stock": 36,
         "brand": "KING TONY WB",
         "category": "аксессуары",
+        "latinCategory": "accessory",
         "thumbnail": "../assets/images/list/main/25.jpg",
         "images": ["../assets/images/list/mini/25.1.jpg", "../assets/images/list/mini/25.2.jpg"]
       }
