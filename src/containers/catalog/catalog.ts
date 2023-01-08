@@ -1,10 +1,11 @@
 import products from '../../files/products.json'
 import { deleteProductOnMain } from '../../modules/deleteGoods'
-import { renderProducts } from '../../modules/renderProducts'
+import modal from "../../modules/modal";
 import { updateHeaderCart } from '../../modules/updateHeader'
 import { parseStorage } from '../../modules/updateStorage'
-import { addQueryParams } from '../../modules/goodsFilter'
-// import { isQueryParamsExist } from '../../modules/queryParams'
+import { renderCart } from '../cart/cart'
+import { renderProducts } from '../../modules/renderProducts'
+import { addQueryParams} from '../../modules/goodsFilter'
 
 
 export const PRODUCTS = products.products
@@ -256,8 +257,6 @@ export function renderCatalog(/* params? : string */): void {
         productsWrapepr.innerHTML = ''
         renderProducts();
 
-        productsWrapepr.addEventListener('click', onProductHandler)
-
         const filterForm = document.querySelector('.filter-form');
         if (filterForm) {
             filterForm.addEventListener('change', (e: Event) => {
@@ -292,15 +291,29 @@ function toggleProductBtn (btn: HTMLElement) {
   if(id && isProductInStorage(id)) {
     btn.innerHTML = 'Удалить из корзины'
   }
+
 }
 
 export function onProductHandler(e:Event) {
   if(e.target) {
-    if((e.target as HTMLElement).tagName == 'BUTTON' ) {
+    if((e.target as HTMLElement).className == 'btn product-btn' || (e.target as HTMLElement).className == 'btn add-btn') {
       const id = (e.target as HTMLElement).getAttribute('data-id')
       if(id && !isProductInStorage(id)) addToProductToStorage(id as string)
+
         toggleProductBtn(e.target as HTMLElement)
         updateHeaderCart();
+    }
+  }
+}
+export function onBuyNowHandler(e:Event) {
+  if(e.target) {
+    if((e.target as HTMLElement).className == 'btn buy-btn' ) {
+      const id = (e.target as HTMLElement).getAttribute('data-id')
+      if(id && !isProductInStorage(id)) {
+        addToProductToStorage(id as string)
+      }
+      renderCart();
+      modal()
     }
   }
 }
@@ -310,7 +323,6 @@ function addToProductToStorage(id: string) {
         id: id,
         count: 1,
     };
-
     const cart: item[] = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart') as string) : [];
     cart.push(item);
     localStorage.setItem('cart', JSON.stringify(cart));

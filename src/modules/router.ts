@@ -69,8 +69,8 @@ const ifProductUrlHandler = (location:string) => {
   return location
 }
 
-const urlLocationHandler = async () => {
-  let location:string = ifProductUrlHandler(window.location.pathname);
+const urlLocationHandler = async () => {   
+  let location:string = ifProductUrlHandler(window.location.pathname); 
 
   if(location.length == 0) {
     location = '/'
