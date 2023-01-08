@@ -1,10 +1,9 @@
 import products from '../../files/products.json'
 import { deleteProductOnMain } from '../../modules/deleteGoods'
+import { renderProducts } from '../../modules/renderProducts'
 import { updateHeaderCart } from '../../modules/updateHeader'
 import { parseStorage } from '../../modules/updateStorage'
-import { addQueryParams, filterGoods} from '../../modules/goodsFilter'
-import { isQueryParamsExist } from '../../modules/queryParams'
-import { initFilterSlider } from '../../modules/priceSlider'
+import { addQueryParams} from '../../modules/goodsFilter'
 
 export const PRODUCTS = products.products
 
@@ -244,66 +243,46 @@ function createAsideBlock () :string {
 export function renderCatalog(/* params? : string */): void {
     const mainContent = document.querySelector('.main-content .container')
 
-  if (mainContent) {
-    const productsWrapepr =  document.createElement('div')
-    productsWrapepr.classList.add('goods__wrapper')
+    if (mainContent) {
+        const productsWrapepr = document.createElement('div')
+        productsWrapepr.classList.add('goods__wrapper')
 
-    // Clear previous content and render catalog content with wrapper for goods
-    mainContent.innerHTML = createAsideBlock()
-    const catalowWrapper = document.querySelector('.catalog__wrapper')
-    if (catalowWrapper !== null)  catalowWrapper.append(productsWrapepr)
-      productsWrapepr.innerHTML = ''
-      const queryParams = isQueryParamsExist();
+        // Clear previous content and render catalog content with wrapper for goods
+        mainContent.innerHTML = createAsideBlock()
+        const catalowWrapper = document.querySelector('.catalog__wrapper')
+        if (catalowWrapper !== null) catalowWrapper.append(productsWrapepr)
+        productsWrapepr.innerHTML = ''
+        renderProducts();
 
-      if (queryParams) {
-        const arrayForRender = filterGoods(queryParams);
-        if (arrayForRender) {
-          productsWrapepr.innerHTML = '';
-          arrayForRender.forEach((product) => {
-            if (productsWrapepr) {
-              const productCart = isProductInStorage(product.id)
-                ? createProductCart(product, 'Удалить из корзины')
-                : createProductCart(product, 'Добавить в корзину');
-              if (productsWrapepr) productsWrapepr.innerHTML += productCart;
-            }
-          });
+        // const queryParams = isQueryParamsExist();
+
+        /* if (queryParams) {
+            renderProducts();
+        } else {
+            Object.values(PRODUCTS).forEach((product) => {
+            const productCart = isProductInStorage(product.id)
+            ? createProductCart(product, 'Удалить из корзины')
+            : createProductCart(product, 'Добавить в корзину');
+            if (productsWrapepr) productsWrapepr.innerHTML += productCart;
+            });
+        } */
+
+        productsWrapepr.addEventListener('click', onProductHandler)
+
+        const filterForm = document.querySelector('.filter-form');
+        if (filterForm) {
+            filterForm.addEventListener('change', (e: Event) => {
+                addQueryParams(e);
+                renderProducts();
+            });
         }
-        initFilterSlider({
-          sliderRangeSel: '.price__range-input input',
-          sliderInputSel: '.price-input input',
-          sliderProgressSel: '.price-slider .progress',
-          gap: 200,
-        });
-        initFilterSlider({
-          sliderRangeSel: '.stock__range-input input',
-          sliderInputSel: '.stock-input input',
-          sliderProgressSel: '.stock-slider .progress',
-          gap: 10,
-        });
-      } else {
-          console.log("else");
-      Object.values(PRODUCTS).forEach((product) => {
-        const productCart = isProductInStorage(product.id) ? createProductCart(product, 'Удалить из корзины') : createProductCart(product, 'Добавить в корзину')
-
-        if(productsWrapepr) productsWrapepr.innerHTML += productCart
-      })
+        const pagOptions = localStorage.getItem('pagination') ? parseStorage("pagination") : [{ rows: 3, page: 0 }];
+        localStorage.setItem('pagination', JSON.stringify(pagOptions));
+        updateHeaderCart();
     }
-      productsWrapepr.addEventListener('click', onProductHandler)
-
-      const filterForm = document.querySelector('.filter-form');
-      if (filterForm) {
-        filterForm.addEventListener('change', (e: Event) => {
-            addQueryParams(e);
-            renderCatalog();
-        });
-      }
-      const pagOptions = localStorage.getItem('pagination') ? parseStorage("pagination"): [{ rows: 3, page: 0 }];
-      localStorage.setItem('pagination', JSON.stringify(pagOptions));
-       updateHeaderCart();
-  }
 }
 
-function isProductInStorage(id : number | string) : boolean {
+export function isProductInStorage(id : number | string) : boolean {
   let status = false
   JSON.parse(localStorage.getItem('cart') as string).forEach((element : item) => {
     if(+id === +element.id) {
@@ -312,7 +291,6 @@ function isProductInStorage(id : number | string) : boolean {
   });
   return status
 }
-
 
 function toggleProductBtn (btn: HTMLElement) {
   const id = btn.getAttribute('data-id')
@@ -323,10 +301,7 @@ function toggleProductBtn (btn: HTMLElement) {
   if(id && isProductInStorage(id)) {
     btn.innerHTML = 'Удалить из корзины'
   }
-
-
 }
-
 
 export function onProductHandler(e:Event) {
   if(e.target) {
@@ -339,14 +314,13 @@ export function onProductHandler(e:Event) {
   }
 }
 
-
 function addToProductToStorage(id: string) {
-  const item: item = {
-    id: id,
-    count: 1,
-  };
+    const item: item = {
+        id: id,
+        count: 1,
+    };
 
-   const cart: item[] = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart') as string) : [];
-   cart.push(item);
+    const cart: item[] = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart') as string) : [];
+    cart.push(item);
     localStorage.setItem('cart', JSON.stringify(cart));
 }

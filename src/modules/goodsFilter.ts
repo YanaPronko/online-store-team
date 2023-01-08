@@ -28,7 +28,6 @@ export const addQueryParams = (e: Event) => {
     for (const [k, v] of Object.entries(queryObject)) {
       url.searchParams.set(k, v);
     }
-    console.log({ queryObject });
     history.pushState("", "", url);
   }
 }
@@ -58,6 +57,7 @@ const addCheckMark = (brands: string[], categories:string[], price:string[], sto
   if (minStockRange) minStockRange.value = stock[0];
   if (maxStockInput) maxStockInput.value = stock[1];
   if (maxStockRange) maxStockRange.value = stock[1];
+
   const checkedBrandID = brandsID.filter((brand) => brands.includes(brand));
   const checkedCategoryID = categoriesID.filter(category => categories.includes(category));
 
