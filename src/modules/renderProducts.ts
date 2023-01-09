@@ -14,8 +14,13 @@ export const renderProducts = () => {
       productsWrapepr.innerHTML = '';
       arrayForRender.forEach((product) => {
         if (productsWrapepr) {
-          const productCart = isProductInStorage(product.id) ? createProductCart(product, 'Удалить из корзины') : createProductCart(product, 'Добавить в корзину');
-          if (productsWrapepr) productsWrapepr.innerHTML += productCart;
+          const productCart = isProductInStorage(product.id) ? createProductCart(product, 'Удалить из корзины')
+            : createProductCart(product, 'Добавить в корзину');
+          if (productsWrapepr) {
+            productsWrapepr.innerHTML += productCart;
+            
+          }
+
         }
       });
       document.querySelectorAll('.rout-link').forEach(element => {

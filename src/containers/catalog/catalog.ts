@@ -7,6 +7,8 @@ import { renderCart } from '../cart/cart'
 import { renderProducts } from '../../modules/renderProducts'
 import { addQueryParams} from '../../modules/goodsFilter'
 import { initSearch } from '../../modules/search';
+import { copyQueryParams } from '../../modules/queryParams';
+import { changeGoodsView } from '../../modules/changeGoodsView';
 
 export const PRODUCTS = products.products
 export const filteredProducts: productData[] = []
@@ -35,12 +37,12 @@ export type item = {
 }
 
 export function createProductCart(productData :productData, btnText?: string) :string {
-  return `
+    return `
 
   <div class="good__card">
     <img src="${productData.thumbnail}" alt="photo" class="good__img">
     <div class="good__content">
-        <a href="/product" class="rout-link" data-id="${productData.id }">
+        <a href="/product" class="rout-link" data-id="${productData.id}">
             <div class="good__title">${productData.title}</div>
         </a>
         <div class="good__rating">
@@ -55,7 +57,7 @@ export function createProductCart(productData :productData, btnText?: string) :s
             <button class="btn add-btn" data-id="${productData.id}">${btnText}</button>
         </div>
     </div>
-  </div>`
+  </div>`;
 }
 
 // Return string with aside,top filters and products wrappers
@@ -204,7 +206,9 @@ function createAsideBlock () :string {
       </fieldset>
   </form>
   <div class="filter__buttons">
+      <a href="/" class="rout-link btn link__reset"
       <button class="btn reset__btn">Сбросить</button>
+      </a>
       <button class="btn copy__btn">Запомнить</button>
   </div>
 </aside>
@@ -227,9 +231,12 @@ function createAsideBlock () :string {
         <div class="sort__icon sort__icon_down ico">
             <span class="material-icons" id="sortByPriceDown">arrow_circle_down</span>
         </div>
+
     </div>    
+
 </div>
-<div class="not__found">Извините, по вашему запросу ничего не найдено</div></div>`;
+<div class="not__found">Извините, по вашему запросу ничего не найдено</div>
+</div>`;
 }
 
 export function renderCatalog(/* params? : string */): void {
@@ -238,7 +245,7 @@ export function renderCatalog(/* params? : string */): void {
 
     if (mainContent) {
         const productsWrapepr = document.createElement('div')
-        productsWrapepr.classList.add('goods__wrapper')
+        productsWrapepr.classList.add('goods__wrapper');
 
         // Clear previous content and render catalog content with wrapper for goods
         mainContent.innerHTML = createAsideBlock()
@@ -246,7 +253,19 @@ export function renderCatalog(/* params? : string */): void {
         if (catalowWrapper !== null) catalowWrapper.append(productsWrapepr)
         productsWrapepr.innerHTML = ''
         renderProducts();
-        initSearch()        
+        initSearch()    
+                const copyParamsBtn = document.querySelector(".copy__btn");
+        if (copyParamsBtn) copyParamsBtn.addEventListener("click", (e: Event) => {
+            copyQueryParams(e);
+        });
+
+        const viewBtns = document.querySelectorAll("[data-view]");
+           if(viewBtns) viewBtns.forEach(item => {
+               item.addEventListener("click", (e: Event) => {
+                   changeGoodsView(e, productsWrapepr);
+               });
+        });
+
         const filterForm = document.querySelector('.filter-form');
         
         if (filterForm) {
@@ -325,6 +344,7 @@ function addToProductToStorage(id: string) {
 
 
 
+
 function sortUp(field:string) {
   return (a:productSortData, b:productSortData) => a[field] > b[field] ? 1 : -1;
 }
@@ -364,3 +384,4 @@ function setSortListeners () {
   document.querySelector('#sortByPriceUp')?.addEventListener('click',() => { sortByPriceUp('price')})
   document.querySelector('#sortByPriceDown')?.addEventListener('click',() => { sortByPriceDown('price')})
 }
+
