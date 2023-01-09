@@ -1,36 +1,44 @@
 import { PRODUCTS } from "../containers/catalog/catalog"
 import { productData } from "../containers/catalog/catalog"
 
-const setParam = (arr: string[], paramName: string, queryObj:{[key: string]:string}) => {
+const setParam = (arr: string[]| undefined, paramName: string, queryObj:{[key: string]:string}) => {
   if (arr) queryObj[paramName] = arr.join(",");
 };
 
 export const addQueryParams = (e: Event) => {
   const target = e.target as HTMLInputElement;
   const filterInput = target.closest('.filter__target') as HTMLInputElement;
-  if (filterInput) {
+  const goodsWrap = document.querySelector('.goods__wrapper') as HTMLElement;
+  if (filterInput && goodsWrap) {
     const queryObject: { [key: string]: string } = {};
+    const view: string | undefined = goodsWrap.dataset.temp;
 
-    const checkedBrands = getInputsID('.brand__input:checked');
-    const checkedCategory = getInputsID('.category__input:checked');
-    const minPrice = getRangeValue('.price-input .input-min');
-    const maxPrice = getRangeValue('.price-input .input-max');
-    const minStock = getRangeValue('.stock-input .input-min');
-    const maxStock = getRangeValue('.stock-input .input-max');
+    if (view) {
+      const viewParam = view.split('');
+      const checkedBrands = getInputsID('.brand__input:checked');
+      const checkedCategory = getInputsID('.category__input:checked');
+      const minPrice = getRangeValue('.price-input .input-min');
+      const maxPrice = getRangeValue('.price-input .input-max');
+      const minStock = getRangeValue('.stock-input .input-min');
+      const maxStock = getRangeValue('.stock-input .input-max');
 
-    setParam(checkedCategory, 'category', queryObject);
-    setParam(checkedBrands, 'brand', queryObject);
-    setParam([`${minPrice}`, `${maxPrice}`], 'price', queryObject);
-    setParam([`${minStock}`, `${maxStock}`], 'stock', queryObject);
+      setParam(viewParam, 'view', queryObject);
+      setParam(checkedCategory, 'category', queryObject);
+      setParam(checkedBrands, 'brand', queryObject);
+      setParam([`${minPrice}`, `${maxPrice}`], 'price', queryObject);
+      setParam([`${minStock}`, `${maxStock}`], 'stock', queryObject);
 
-    const location = window.location.href;
-    const url = new URL(location);
-    for (const [k, v] of Object.entries(queryObject)) {
-      url.searchParams.set(k, v);
+      const location = window.location.href;
+      const url = new URL(location);
+      for (const [k, v] of Object.entries(queryObject)) {
+        url.searchParams.set(k, v);
+      }
+      history.pushState('', '', url);
     }
-    history.pushState("", "", url);
   }
 }
+
+
 
 const changeRangeProgress = (
   val: string[],
@@ -58,7 +66,10 @@ const changeRangeProgress = (
   }
 };
 
-const addCheckMark = (brands: string[], categories:string[], price:string[], stock:string[]) => {
+const addCheckMark = (brands: string[], categories: string[], price: string[], stock: string[], view: string[]) => {
+  const goodsWrap = document.querySelector('.goods__wrapper') as HTMLElement;
+  goodsWrap.dataset.temp = view.join('');
+
   const brandsID = getInputsID('.brand__input');
   const categoriesID = getInputsID('.category__input');
   const rangePrice = document.querySelector<HTMLElement>('.price-slider .progress');
@@ -110,8 +121,9 @@ export const filterGoods = (queryObj: { [key: string]: string }) => {
   const brands = queryObj.brand.split('%2C').filter(item => item);
   const price = queryObj.price.split('%2C').filter((item) => item);
   const stock = queryObj.stock.split('%2C').filter((item) => item);
+  const view = queryObj.view.split('%2C').filter((item) => item);
 
-  addCheckMark(brands, categories, price, stock);
+  addCheckMark(brands, categories, price, stock, view);
 
   const filtered: productData[] = PRODUCTS.filter((product: productData) => {
     const brandFilter = !brands.length || brands.includes(product.brand.trim().toUpperCase().split(' ').join(''));
