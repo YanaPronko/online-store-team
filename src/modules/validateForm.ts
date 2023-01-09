@@ -148,6 +148,7 @@ const validateForm = () => {
           clearCart();
           closeModal();
           renderCart();
+          window.location.href = '/'
           renderCatalog();
         }, 5000);
       });

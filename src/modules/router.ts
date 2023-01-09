@@ -44,7 +44,7 @@ document.querySelectorAll('.rout-link').forEach(element => {
   element.addEventListener('click', linkHandler )
 });
 
-function linkHandler (e:Event) {
+export function linkHandler (e:Event) {
   e.preventDefault()
   const id =  (e.currentTarget as HTMLElement).getAttribute('data-id');
   if(e.currentTarget && id !== null )
