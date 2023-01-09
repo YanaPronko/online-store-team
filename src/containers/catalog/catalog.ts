@@ -15,10 +15,10 @@ export const filteredProducts: productData[] = []
 
 export type productSortData = {
   [key:string]:string | number | string[],
- 
+
 }
 export type productData = {
-  
+
   id: number,
   title: string,
   description: string,
@@ -231,21 +231,28 @@ function createAsideBlock () :string {
         <div class="sort__icon sort__icon_down ico">
             <span class="material-icons" id="sortByPriceDown">arrow_circle_down</span>
         </div>
-
-    </div>    
-
+        <div class="sort__block">
+        <div data-view="list" class="sort__icon filter__target view__icon ico">
+            <span class="material-icons">view_list</span>
+        </div>
+        <div data-view="grid" class="sort__icon filter__target view__icon ico">
+            <span class="material-icons">apps</span>
+        </div>
+    </div>
+    </div>
 </div>
 <div class="not__found">Извините, по вашему запросу ничего не найдено</div>
 </div>`;
 }
 
 export function renderCatalog(/* params? : string */): void {
-  
+
     const mainContent = document.querySelector('.main-content .container')
 
     if (mainContent) {
         const productsWrapepr = document.createElement('div')
         productsWrapepr.classList.add('goods__wrapper');
+        productsWrapepr.setAttribute("data-temp", "grid");
 
         // Clear previous content and render catalog content with wrapper for goods
         mainContent.innerHTML = createAsideBlock()
@@ -253,8 +260,8 @@ export function renderCatalog(/* params? : string */): void {
         if (catalowWrapper !== null) catalowWrapper.append(productsWrapepr)
         productsWrapepr.innerHTML = ''
         renderProducts();
-        initSearch()    
-                const copyParamsBtn = document.querySelector(".copy__btn");
+        initSearch()
+        const copyParamsBtn = document.querySelector(".copy__btn");
         if (copyParamsBtn) copyParamsBtn.addEventListener("click", (e: Event) => {
             copyQueryParams(e);
         });
@@ -267,14 +274,14 @@ export function renderCatalog(/* params? : string */): void {
         });
 
         const filterForm = document.querySelector('.filter-form');
-        
+
         if (filterForm) {
             filterForm.addEventListener('change', (e: Event) => {
                 addQueryParams(e);
                 renderProducts();
                 initSearch()
             });
-        }   
+        }
         setSortListeners()
         const pagOptions = localStorage.getItem('pagination') ? parseStorage("pagination") : [{ rows: 3, page: 0 }];
         localStorage.setItem('pagination', JSON.stringify(pagOptions));
@@ -306,12 +313,12 @@ function toggleProductBtn (btn: HTMLElement) {
 
 }
 
-export function onProductHandler(e:Event) { 
+export function onProductHandler(e:Event) {
   if(e.target) {
     if((e.target as HTMLElement).className == 'btn product-btn' || (e.target as HTMLElement).className == 'btn add-btn') {
-    
+
       const id = (e.target as HTMLElement).getAttribute('data-id')
-      if(id && !isProductInStorage(id)) addToProductToStorage(id as string)      
+      if(id && !isProductInStorage(id)) addToProductToStorage(id as string)
         toggleProductBtn(e.target as HTMLElement)
         updateHeaderCart();
     }
@@ -357,25 +364,25 @@ function sortDown(field:string) {
 function sortByTitleUp(field:string) {
   PRODUCTS.sort(sortUp(field))
   renderCatalog()
-  
+
 }
 
 function sortByTitleDown(field:string) {
   PRODUCTS.sort(sortDown(field))
   renderCatalog()
-  
+
 }
 
 function sortByPriceUp(field:string) {
   PRODUCTS.sort(sortUp(field))
   renderCatalog()
-  
+
 }
 
 function sortByPriceDown(field:string) {
   PRODUCTS.sort(sortDown(field))
   renderCatalog()
-  
+
 }
 
 function setSortListeners () {
