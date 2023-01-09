@@ -49,6 +49,7 @@
   }
 }
 .reset__btn,
+.link__reset,
 .copy__btn {
   @include font(1.8rem, 120%);
   width: 120px;
@@ -154,4 +155,9 @@ input[type="range"]::-moz-range-thumb {
   pointer-events: auto;
   -moz-appearance: none;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+}
+.link__reset {
+  display: flex;
+  justify-content:center;
+  align-items: center;
 }

@@ -44,12 +44,11 @@ document.querySelectorAll('.rout-link').forEach(element => {
   element.addEventListener('click', linkHandler )
 });
 
-function linkHandler (e:Event) {
+export function linkHandler (e:Event) {
   e.preventDefault()
   const id =  (e.currentTarget as HTMLElement).getAttribute('data-id');
   if(e.currentTarget && id !== null )
   TARGET_ID = +id
-
 
   urlRoute(e);
  }
@@ -69,8 +68,8 @@ const ifProductUrlHandler = (location:string) => {
   return location
 }
 
-const urlLocationHandler = async () => {   
-  let location:string = ifProductUrlHandler(window.location.pathname); 
+const urlLocationHandler = async () => {
+  let location:string = ifProductUrlHandler(window.location.pathname);
 
   if(location.length == 0) {
     location = '/'
