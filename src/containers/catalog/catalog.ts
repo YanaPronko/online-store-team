@@ -6,11 +6,19 @@ import { parseStorage } from '../../modules/updateStorage'
 import { renderCart } from '../cart/cart'
 import { renderProducts } from '../../modules/renderProducts'
 import { addQueryParams} from '../../modules/goodsFilter'
+import { initSearch } from '../../modules/search';
 import { copyQueryParams } from '../../modules/queryParams';
 import { changeGoodsView } from '../../modules/changeGoodsView';
-export const PRODUCTS = products.products
 
+export const PRODUCTS = products.products
+export const filteredProducts: productData[] = []
+
+export type productSortData = {
+  [key:string]:string | number | string[],
+ 
+}
 export type productData = {
+  
   id: number,
   title: string,
   description: string,
@@ -209,44 +217,30 @@ function createAsideBlock () :string {
     <div class="sort__block">
         <p class="sort__block-name">Сортировка по названию</p>
         <div class="sort__icon sort__icon_up ico">
-            <span class="material-icons">arrow_circle_up</span>
+            <span class="material-icons" id="sortByNameUp">arrow_circle_up</span>
         </div>
         <div class="sort__icon sort__icon_down ico">
-            <span class="material-icons">arrow_circle_down</span>
+            <span class="material-icons" id="sortByNameDown">arrow_circle_down</span>
         </div>
     </div>
     <div class="sort__block">
         <p class="sort__block-name">Сортировка по цене</p>
         <div class="sort__icon sort__icon_up ico">
-            <span class="material-icons">arrow_circle_up</span>
+            <span class="material-icons" id="sortByPriceUp">arrow_circle_up</span>
         </div>
         <div class="sort__icon sort__icon_down ico">
-            <span class="material-icons">arrow_circle_down</span>
+            <span class="material-icons" id="sortByPriceDown">arrow_circle_down</span>
         </div>
-    </div>
-    <div class="sort__block">
-        <p class="sort__block-name">Сортировка по популярности</p>
-        <div class="sort__icon sort__icon_up ico">
-            <span class="material-icons">arrow_circle_up</span>
-        </div>
-        <div class="sort__icon sort__icon_down ico">
-            <span class="material-icons">arrow_circle_down</span>
-        </div>
-        <div class="sort__block">
-            <div data-view="list" class="sort__icon filter__target view__icon ico">
-                <span class="material-icons">view_list</span>
-            </div>
-            <div data-view="grid" class="sort__icon filter__target view__icon ico">
-                <span class="material-icons">apps</span>
-            </div>
-        </div>
-    </div>
+
+    </div>    
+
 </div>
 <div class="not__found">Извините, по вашему запросу ничего не найдено</div>
 </div>`;
 }
 
 export function renderCatalog(/* params? : string */): void {
+  
     const mainContent = document.querySelector('.main-content .container')
 
     if (mainContent) {
@@ -259,8 +253,8 @@ export function renderCatalog(/* params? : string */): void {
         if (catalowWrapper !== null) catalowWrapper.append(productsWrapepr)
         productsWrapepr.innerHTML = ''
         renderProducts();
-
-        const copyParamsBtn = document.querySelector(".copy__btn");
+        initSearch()    
+                const copyParamsBtn = document.querySelector(".copy__btn");
         if (copyParamsBtn) copyParamsBtn.addEventListener("click", (e: Event) => {
             copyQueryParams(e);
         });
@@ -273,12 +267,15 @@ export function renderCatalog(/* params? : string */): void {
         });
 
         const filterForm = document.querySelector('.filter-form');
+        
         if (filterForm) {
             filterForm.addEventListener('change', (e: Event) => {
                 addQueryParams(e);
                 renderProducts();
+                initSearch()
             });
-        }
+        }   
+        setSortListeners()
         const pagOptions = localStorage.getItem('pagination') ? parseStorage("pagination") : [{ rows: 3, page: 0 }];
         localStorage.setItem('pagination', JSON.stringify(pagOptions));
         updateHeaderCart();
@@ -309,12 +306,12 @@ function toggleProductBtn (btn: HTMLElement) {
 
 }
 
-export function onProductHandler(e:Event) {
+export function onProductHandler(e:Event) { 
   if(e.target) {
     if((e.target as HTMLElement).className == 'btn product-btn' || (e.target as HTMLElement).className == 'btn add-btn') {
+    
       const id = (e.target as HTMLElement).getAttribute('data-id')
-      if(id && !isProductInStorage(id)) addToProductToStorage(id as string)
-
+      if(id && !isProductInStorage(id)) addToProductToStorage(id as string)      
         toggleProductBtn(e.target as HTMLElement)
         updateHeaderCart();
     }
@@ -343,4 +340,48 @@ function addToProductToStorage(id: string) {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
 
+
+
+
+
+
+function sortUp(field:string) {
+  return (a:productSortData, b:productSortData) => a[field] > b[field] ? 1 : -1;
+}
+
+function sortDown(field:string) {
+  return (a:productSortData, b:productSortData) => a[field] < b[field] ? 1 : -1;
+}
+
+
+function sortByTitleUp(field:string) {
+  PRODUCTS.sort(sortUp(field))
+  renderCatalog()
+  
+}
+
+function sortByTitleDown(field:string) {
+  PRODUCTS.sort(sortDown(field))
+  renderCatalog()
+  
+}
+
+function sortByPriceUp(field:string) {
+  PRODUCTS.sort(sortUp(field))
+  renderCatalog()
+  
+}
+
+function sortByPriceDown(field:string) {
+  PRODUCTS.sort(sortDown(field))
+  renderCatalog()
+  
+}
+
+function setSortListeners () {
+  document.querySelector('#sortByNameUp')?.addEventListener('click',() => { sortByTitleUp('title')})
+  document.querySelector('#sortByNameDown')?.addEventListener('click',() => { sortByTitleDown('title')})
+  document.querySelector('#sortByPriceUp')?.addEventListener('click',() => { sortByPriceUp('price')})
+  document.querySelector('#sortByPriceDown')?.addEventListener('click',() => { sortByPriceDown('price')})
+}
 

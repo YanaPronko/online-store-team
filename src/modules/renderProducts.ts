@@ -1,6 +1,7 @@
 import { isQueryParamsExist } from "./queryParams";
 import { filterGoods } from "./goodsFilter";
 import { createProductCart, isProductInStorage, PRODUCTS } from "../containers/catalog/catalog"
+import { linkHandler } from "./router";
 
 
 export const renderProducts = () => {
@@ -8,7 +9,7 @@ export const renderProducts = () => {
 
   const queryParams = isQueryParamsExist();
   if (queryParams) {
-    const arrayForRender = filterGoods(queryParams);
+    const arrayForRender = filterGoods(queryParams);  
     if (arrayForRender && productsWrapepr) {
       productsWrapepr.innerHTML = '';
       arrayForRender.forEach((product) => {
@@ -21,6 +22,9 @@ export const renderProducts = () => {
           }
 
         }
+      });
+      document.querySelectorAll('.rout-link').forEach(element => {
+        element.addEventListener('click', linkHandler )
       });
     }
   } else {

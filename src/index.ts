@@ -4,6 +4,7 @@ import { initFilterSlider } from "./modules/priceSlider";
 import "./modules/router";
 import './containers/cart/cart';
 import { onBuyNowHandler, onProductHandler } from "./containers/catalog/catalog";
+import { initSearch } from "./modules/search";
 
 document.addEventListener("DOMContentLoaded", () => {
   initProductSlider();
@@ -21,4 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   document.querySelector('.main-content')?.addEventListener('click', onProductHandler)
   document.querySelector('.main-content')?.addEventListener('click', onBuyNowHandler)
+  // document.querySelector('.goods__wrapper')?.addEventListener('click', linkHandler)
+  initSearch()
 });
