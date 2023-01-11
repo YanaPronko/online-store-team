@@ -24,7 +24,7 @@ const createModal = () => {
               <span>&times;</span>
             </button>
             <div class="modal-header">
-              <div class="modal-title">Доставка и оплата</div>
+              <div class="modal-title">Оплата и доставка</div>
             </div>
             <div class="modal-body">
               <form action=# method=POST id="form" class="modal-body__form">
