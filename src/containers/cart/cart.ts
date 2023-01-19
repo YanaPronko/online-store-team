@@ -17,7 +17,7 @@ export type count = {
 
 export type goodInCart = productData & count;
 
-export function createGoodsInCart(goodsID: item[]) {
+export function createGoodsInCart(goodsID: item<string>[]) {
   const goodsInCart: goodInCart[] = [];
   for (let i = 0; i < goodsID.length; i++) {
     const item = PRODUCTS.find((good) => good.id === +goodsID[i].id);
@@ -31,7 +31,7 @@ export function createGoodsInCart(goodsID: item[]) {
 }
 
 export function renderCart(): void {
-  const goodsID: item[] = parseStorage("cart");
+  const goodsID: item<string>[] = parseStorage("cart");
   if (!goodsID || goodsID.length === 0) {
     renderEmptyCart();
   } else {
@@ -117,7 +117,7 @@ function renderCartWithGoods(arrayOfGoods: goodInCart[]): void {
         } else {
           id = target.getAttribute('data-id') as string;
         }
-        const ind = +goods.findIndex((item: item) => item.id === id);
+        const ind = +goods.findIndex((item: item<string>) => item.id === id);
         deleteProductFromCart(goods, ind);
       }
     });
