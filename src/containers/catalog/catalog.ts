@@ -11,6 +11,8 @@ import { copyQueryParams } from '../../modules/queryParams';
 import { changeGoodsView } from '../../modules/changeGoodsView';
 
 export const PRODUCTS = products.products
+const BRANDS = ['Skill Bike','KUPI_LA','BMW','STELS','MAXISCOO','Tech Team','Safari proff','ZIGZAG','City-Ride','LAMBORGHINI',
+'Sundays','Peruzzo','LUX', 'Вело-рай','Mea Signum','Дымовой','KING TONY WB']
 export const filteredProducts: productData[] = []
 
 export type productSortData = {
@@ -31,10 +33,12 @@ export type productData = {
   images:  string[]
 }
 
-export type item = {
-  id: string;
+export type item<T> = {
+  id: T;
   count: number;
 }
+
+export type productId = number | string
 
 export function createProductCart(productData :productData, btnText?: string) :string {
     return `
@@ -179,15 +183,14 @@ function createAsideBlock () :string {
 function appendBrends() {
   const brandList = document.querySelector('.brand__list')
   if(brandList) {
-    PRODUCTS.map(product => {
-      console.log(product.brand)
-      const brand = `
+    BRANDS.map(brand => {    
+      const li = `
         <li class="filter__list-item brand__list-item">
-          <input id="${product.brand.split(' ').join().toUpperCase()}" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
-          <label for="SKILBIKE" class="filter__label brand__label">${product.brand}</label>
+          <input id="${brand.split(' ').join('').toUpperCase()}" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
+          <label for="SKILBIKE" class="filter__label brand__label">${brand}</label>
       </li>
       `
-      brandList.innerHTML += brand
+      brandList.innerHTML += li
     })
   }
 }
@@ -237,10 +240,10 @@ export function renderCatalog(/* params? : string */): void {
     }
 }
 
-export function isProductInStorage(id : number | string) : boolean {
+export function isProductInStorage(id : productId) : boolean {
   let status = false
   if(localStorage.getItem('cart')) {
-    JSON.parse(localStorage.getItem('cart') as string).forEach((element : item) => {
+    JSON.parse(localStorage.getItem('cart') as string).forEach((element : item<string>) => {
       if(+id === +element.id) {
         status = true
       }
@@ -287,11 +290,11 @@ export function onBuyNowHandler(e:Event) {
 }
 
 function addToProductToStorage(id: string) {
-    const item: item = {
+    const item: item<string> = {
         id: id,
         count: 1,
     };
-    const cart: item[] = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart') as string) : [];
+    const cart: item<string>[] = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart') as string) : [];
     cart.push(item);
     localStorage.setItem('cart', JSON.stringify(cart));
 }
