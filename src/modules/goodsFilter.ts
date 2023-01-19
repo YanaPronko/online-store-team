@@ -38,8 +38,6 @@ export const addQueryParams = (e: Event) => {
   }
 }
 
-
-
 const changeRangeProgress = (
   val: string[],
   minRange: HTMLInputElement | null,

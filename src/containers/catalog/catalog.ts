@@ -18,7 +18,6 @@ export type productSortData = {
 
 }
 export type productData = {
-
   id: number,
   title: string,
   description: string,
@@ -31,6 +30,7 @@ export type productData = {
   thumbnail: string,
   images:  string[]
 }
+
 export type item = {
   id: string;
   count: number;
@@ -38,7 +38,6 @@ export type item = {
 
 export function createProductCart(productData :productData, btnText?: string) :string {
     return `
-
   <div class="good__card">
     <img src="${productData.thumbnail}" alt="photo" class="good__img">
     <div class="good__content">
@@ -91,75 +90,7 @@ function createAsideBlock () :string {
       </fieldset>
       <fieldset class="filter filter-form__brands">
           <h3 class="form-title">Бренд</h3>
-          <ul class="filter__list brand__list">
-              <li class="filter__list-item brand__list-item">
-                  <input id="SKILBIKE" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
-                  <label for="SKILBIKE" class="filter__label brand__label">Skill Bike</label>
-              </li>
-              <li class="filter__list-item brand__list-item">
-                  <input id="KUPI_LA" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
-                  <label for="KUPI_LA" class="filter__label brand__label">KUPI_LA</label>
-              </li>
-              <li class="filter__list-item brand__list-item">
-                  <input id="BMW" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
-                  <label for="BMW" class="filter__label category__label">BMW</label>
-              </li>
-              <li class="filter__list-item brand__list-item">
-                  <input id="STELS"" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
-                  <label for="STELS"" class="filter__label brand__label">STELS</label>
-              </li>
-              <li class="filter__list-item category__list-item">
-                  <input id="MAXISCOO" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
-                  <label for="MAXISCOO" class="filter__label brand__label">MAXISCOO</label>
-              </li>
-              <li class="filter__list-item category__list-item">
-                  <input id="TECHTEAM" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
-                  <label for="TECHTEAM" class="filter__label brand__label">Tech Team</label>
-              </li>
-              <li class="filter__list-item category__list-item">
-                  <input id="SAFARIPROFF" type="checkbox" data-name='brand'  class="filter__target filter__input brand__input">
-                  <label for="SAFARIPROFF" class="filter__label brand__label">Safari proff</label>
-              </li>
-              <li class="filter__list-item category__list-item">
-                  <input id="ZIGZAG" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
-                  <label for="ZIGZAG" class="filter__label brand__label">ZIGZAG</label>
-              </li>
-              <li class="filter__list-item category__list-item">
-                  <input id="CITYRIDE" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
-                  <label for="CITYRIDE" class="filter__label brand__label">City-Ride</label>
-              </li>
-              <li class="filter__list-item category__list-item">
-                  <input id="LAMBORGHINI" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
-                  <label for="LAMBORGHINI" class="filter__label brand__label">LAMBORGHINI</label>
-              </li>
-              <li class="filter__list-item category__list-item">
-                  <input id="SUNDAYS" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
-                  <label for="SUNDAYS" class="filter__label brand__label">Sundays</label>
-              </li>
-              <li class="filter__list-item category__list-item">
-                  <input id="PERUZZO" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
-                  <label for="PERUZZO" class="filter__label brand__label">Peruzzo</label>
-              </li>
-              <li class="filter__list-item category__list-item">
-                  <input id="LUX" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
-                  <label for="LUX" class="filter__label brand__label">LUX</label>
-              </li>
-              <li class="filter__list-item category__list-item">
-                  <input id="ВЕЛОРАЙ" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
-                  <label for="ВЕЛОРАЙ" class="filter__label brand__label">Вело-рай</label>
-              </li>
-              <li class="filter__list-item category__list-item">
-                  <input id="MEASIGNUM" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
-                  <label for="MEASIGNUM" class="filter__label brand__label">Mea Signum</label>
-              </li>
-              <li class="filter__list-item category__list-item">
-                  <input id="ДЫМОВОЙ" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
-                  <label for="ДЫМОВОЙ" class="filter__label brand__label">Дымовой</label>
-              </li>
-              <li class="filter__list-item category__list-item">
-                  <input id="KINGTONYWB" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
-                  <label for="KINGTONYWB" class="filter__label brand__label">KING TONY WB</label>
-              </li>
+          <ul class="filter__list brand__list">        
           </ul>
       </fieldset>
       <fieldset class="form__price">
@@ -245,6 +176,22 @@ function createAsideBlock () :string {
 </div>`;
 }
 
+function appendBrends() {
+  const brandList = document.querySelector('.brand__list')
+  if(brandList) {
+    PRODUCTS.map(product => {
+      console.log(product.brand)
+      const brand = `
+        <li class="filter__list-item brand__list-item">
+          <input id="${product.brand.split(' ').join().toUpperCase()}" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
+          <label for="SKILBIKE" class="filter__label brand__label">${product.brand}</label>
+      </li>
+      `
+      brandList.innerHTML += brand
+    })
+  }
+}
+
 export function renderCatalog(/* params? : string */): void {
 
     const mainContent = document.querySelector('.main-content .container')
@@ -256,6 +203,7 @@ export function renderCatalog(/* params? : string */): void {
 
         // Clear previous content and render catalog content with wrapper for goods
         mainContent.innerHTML = createAsideBlock()
+        appendBrends()
         const catalowWrapper = document.querySelector('.catalog__wrapper')
         if (catalowWrapper !== null) catalowWrapper.append(productsWrapepr)
         productsWrapepr.innerHTML = ''
@@ -324,6 +272,7 @@ export function onProductHandler(e:Event) {
     }
   }
 }
+
 export function onBuyNowHandler(e:Event) {
   if(e.target) {
     if((e.target as HTMLElement).className == 'btn buy-btn' ) {
@@ -347,11 +296,6 @@ function addToProductToStorage(id: string) {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
 
-
-
-
-
-
 function sortUp(field:string) {
   return (a:productSortData, b:productSortData) => a[field] > b[field] ? 1 : -1;
 }
@@ -360,29 +304,24 @@ function sortDown(field:string) {
   return (a:productSortData, b:productSortData) => a[field] < b[field] ? 1 : -1;
 }
 
-
 function sortByTitleUp(field:string) {
   PRODUCTS.sort(sortUp(field))
   renderCatalog()
-
 }
 
 function sortByTitleDown(field:string) {
   PRODUCTS.sort(sortDown(field))
   renderCatalog()
-
 }
 
 function sortByPriceUp(field:string) {
   PRODUCTS.sort(sortUp(field))
   renderCatalog()
-
 }
 
 function sortByPriceDown(field:string) {
   PRODUCTS.sort(sortDown(field))
   renderCatalog()
-
 }
 
 function setSortListeners () {
