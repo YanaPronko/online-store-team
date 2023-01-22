@@ -49,10 +49,8 @@ export function linkHandler (e:Event) {
   const id =  (e.currentTarget as HTMLElement).getAttribute('data-id');
   if(e.currentTarget && id !== null )
   TARGET_ID = +id
-
   urlRoute(e);
  }
-
 
 const urlRoute = (event:Event) => {
   event  = event || window.event;
@@ -61,7 +59,6 @@ const urlRoute = (event:Event) => {
 
   urlLocationHandler();
 }
-
 
 const ifProductUrlHandler = (location:string) => {
   if(location.includes('product')) return '/product'

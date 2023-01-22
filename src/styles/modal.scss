@@ -13,22 +13,22 @@
   overflow: hidden;
   background-color: rgba(0, 0, 0, 0.5);
   &-dialog {
-    max-width: 70%;
+    max-width: 45%;
     margin: 8vh auto;
   }
   &-content {
     position: relative;
     width: 100%;
-    background-color: $color-secondary;
+    background-color: #fff;
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 4px;
     max-height: 80vh;
     overflow-y: auto;
     .close {
-      @include font(3rem, 120%, 700);
+      @include font(2rem, 120%, 700);
       position: absolute;
-      top: 0px;
-      right: 0px;
+      top: 3px;
+      right: 3px;
       color: $color-primary-dark;
       opacity: 0.5;
       border: none;
@@ -42,8 +42,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    padding: 1.5rem;
-    border-bottom: 3px solid rgba(84, 87, 86, 0.3);
+    padding: 1rem;
+    border-bottom: 1px solid rgba(84, 87, 86, 0.3);
     @include max-media-mobile {
       padding: 0.5rem;
     }
@@ -57,7 +57,7 @@
   }
   &-title,
   &-message {
-    @include font(3rem, 120%, 600);
+    @include font(2rem, 120%, 600);
     color: $color-primary;
     text-align: center;
     text-transform: uppercase;
@@ -89,32 +89,32 @@
   }
 }
 .input__wrapper {
-  display: flex;
+  // display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2rem;
   width: 100%;
   height: 100%;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
 }
 
 .input {
-  @include font(2rem, 120%, 500);
-  width: 80%;
+  @include font(1.5rem, 120%, 500);
+  width: 60%;
   height: 4rem;
   padding: 1rem;
-  margin-bottom: 1rem;
+  border: 1px solid rgba(84, 87, 86, 0.3);
+  margin-top: 1rem
 }
 .label {
-  @include font(1.5rem, 120%, 600);
+  @include font(1rem, 120%, 600);
   width: 100%;
   height: 6rem;
-  padding: 1rem 0;
-  margin-bottom: 1rem;
+  padding: 1rem 0;  
 }
 
 input::placeholder {
-  @include font(2rem, 120%, 500);
+  @include font(1.5rem, 120%, 500);
 }
 .order__btn {
   @include font(2rem, 120%, 500);
@@ -132,7 +132,7 @@ input::placeholder {
 }
 
 .status {
-  @include font(2.5rem, 120%, 700);
+  @include font(2rem, 120%, 700);
   display: block;
   margin: 0 auto;
   text-align: center;

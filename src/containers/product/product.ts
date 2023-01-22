@@ -73,5 +73,4 @@ export function renderProductPage(id : number) : void {
     if(productsWrapepr) productsWrapepr.innerHTML += productCart
     initProductSlider()
   }
-
 }

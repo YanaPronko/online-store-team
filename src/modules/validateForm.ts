@@ -42,7 +42,7 @@ const validateForm = () => {
         },
         {
           rule: 'required' as Rules,
-          errorMessage: 'Поле обязательно для заполнения',
+          errorMessage: 'Обязательное поле',
         },
       ])
       .addField('#phone', [

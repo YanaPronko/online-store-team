@@ -3,11 +3,6 @@ import { filterGoods } from "./goodsFilter"
 import { isQueryParamsExist } from "./queryParams"
 import { linkHandler } from "./router"
 
-
-
-
-
-
 export function initSearch() : void {
   if(isSearchParamsExist()) {
     renderSearchedProducts()
@@ -32,8 +27,6 @@ function addSearchParams(e: Event) {
   history.pushState("", "", url);
 }
 
-
-
 export function isSearchParamsExist(): boolean {
   const params = new URL(window.location.href).searchParams.get('search');  
   if(params) return true
@@ -52,10 +45,8 @@ function sortProducts() {
    if(params) {
     const filtered: productData[] = dataForFilter.filter((product: productData) => product.title.trim().toUpperCase().split(' ').join('').includes(params) || product.description.trim().toUpperCase().split(' ').join('').includes(params) || product.brand.trim().toUpperCase().split(' ').join('').includes(params) || product.category.trim().toUpperCase().split(' ').join('').includes(params) || product.latinCategory.trim().toUpperCase().split(' ').join('').includes(params));
     return filtered;
-   } 
- 
+   }  
 }
-
 
 export function renderSearchedProducts() {
   const productsWrapepr = document.querySelector('.goods__wrapper');

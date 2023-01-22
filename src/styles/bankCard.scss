@@ -6,14 +6,14 @@
   &__wrapper {
     position: relative;
     width: 80%;
-    height: 381px;
+    height: 295px;
   }
   &__back,
   &__front {
     position: absolute;
-    width: 400px;
-    height: 250px;
-    border: 1px solid $color-primary;
+    width: 350px;
+    height: 220px;
+    border: 1px solid rgba(84, 87, 86, 0.3);
     border-radius: 1.5rem;
   }
   &__back-line {
@@ -24,7 +24,7 @@
     background: $color-text;
   }
   &__back {
-    right: 7rem;
+    right: 0rem;
     bottom: 6rem;
     background: lighten($color-text, 50%);
   }
@@ -56,7 +56,7 @@
   &__card-number,
   &__month,
   &__year {
-    @include font(2.5rem, 120%, 500);
+    @include font(1.5rem, 120%, 500);
     padding: 0.5rem;
     background:  rgba(0, 0, 0, 0.2);
     border: none;
@@ -80,7 +80,7 @@
 .cvv-label {
   position: absolute;
   right: 6rem;
-  bottom: 7rem;
+  bottom: 6rem;
   width: 10rem;
   text-align: center;
 }
@@ -91,6 +91,9 @@
   padding: 1rem 0 3rem 0;
 }
 .slash {
-  @include font(4rem, 110%, 400);
+  @include font(3rem, 110%, 400);
   color: lighten($color-primary, 30%);
+  padding: 5px;
+  display: inline-block;
+  margin-top: 8px;
 }
