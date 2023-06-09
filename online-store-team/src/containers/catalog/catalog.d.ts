@@ -28,12 +28,13 @@ export type productData = {
     thumbnail: string;
     images: string[];
 };
-export type item = {
-    id: string;
+export type item<T> = {
+    id: T;
     count: number;
 };
+export type productId = number | string;
 export declare function createProductCart(productData: productData, btnText?: string): string;
 export declare function renderCatalog(): void;
-export declare function isProductInStorage(id: number | string): boolean;
+export declare function isProductInStorage(id: productId): boolean;
 export declare function onProductHandler(e: Event): void;
 export declare function onBuyNowHandler(e: Event): void;
