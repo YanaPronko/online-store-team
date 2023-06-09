@@ -66,7 +66,7 @@ const createModal = () => {
                         <input type="number" id="year" maxlength="2" class="input input__year" required>
                         </label>
                       </div>
-                      <img src="./assets/images/icons/Mastercard.svg" alt="logo of payment system" class="card__logo">
+                      <img src="assets/images/icons/Mastercard.svg" alt="logo of payment system" class="card__logo">
                     </div>
                   </div>
                 </div>
