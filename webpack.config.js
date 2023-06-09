@@ -25,7 +25,6 @@ module.exports = {
     watchFiles: path.join(__dirname, 'src'),
     compress: true,
     port: 3000,
-    // liveReload: false,
     hot: true,
   },
   module: {
@@ -60,7 +59,7 @@ module.exports = {
       ],
     }),
     ...pages.map((item) => {
-     return new HtmlWebpackPlugin({
+    return new HtmlWebpackPlugin({
         template: `src/${item}`,
         filename: `${item}`,
         minify: {

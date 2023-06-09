@@ -22,6 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   document.querySelector('.main-content')?.addEventListener('click', onProductHandler)
   document.querySelector('.main-content')?.addEventListener('click', onBuyNowHandler)
-  // document.querySelector('.goods__wrapper')?.addEventListener('click', linkHandler)
+
   initSearch()
 });

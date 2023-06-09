@@ -36,8 +36,8 @@ export const onNextArrowHandler = () => {
   const totalPages = parseStorage("totalPages");
   if ((pagOptions[0].page + 1) === +totalPages) return;
   pagOptions[0].page = ++pagOptions[0].page;
-   setStorage('pagination', pagOptions);
-   renderCart();
+  setStorage('pagination', pagOptions);
+  renderCart();
 }
 export const onPrevArrowHandler = () => {
   const pagOptions = parseStorage('pagination');

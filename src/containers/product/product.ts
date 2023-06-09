@@ -68,7 +68,6 @@ export function renderProductPage(id : number) : void {
   const productsWrapepr = document.querySelector('.main-content')
   if(productsWrapepr) {
     productsWrapepr.innerHTML = ''
-    // const productCart = createProductPage(PRODUCTS[id])
     const productCart = isProductInStorage(id) ? createProductPage(PRODUCTS[id], 'Удалить из корзины') : createProductPage(PRODUCTS[id], 'Добавить в корзину')
     if(productsWrapepr) productsWrapepr.innerHTML += productCart
     initProductSlider()

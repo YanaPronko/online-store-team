@@ -94,7 +94,7 @@ function createAsideBlock () :string {
       </fieldset>
       <fieldset class="filter filter-form__brands">
           <h3 class="form-title">Бренд</h3>
-          <ul class="filter__list brand__list">        
+          <ul class="filter__list brand__list">
           </ul>
       </fieldset>
       <fieldset class="form__price">
@@ -183,7 +183,7 @@ function createAsideBlock () :string {
 function appendBrends() {
   const brandList = document.querySelector('.brand__list')
   if(brandList) {
-    BRANDS.map(brand => {    
+    BRANDS.map(brand => {
       const li = `
         <li class="filter__list-item brand__list-item">
           <input id="${brand.split(' ').join('').toUpperCase()}" type="checkbox" data-name='brand' class="filter__target filter__input brand__input">
@@ -218,10 +218,10 @@ export function renderCatalog(/* params? : string */): void {
         });
 
         const viewBtns = document.querySelectorAll("[data-view]");
-           if(viewBtns) viewBtns.forEach(item => {
-               item.addEventListener("click", (e: Event) => {
-                   changeGoodsView(e, productsWrapepr);
-               });
+          if(viewBtns) viewBtns.forEach(item => {
+              item.addEventListener("click", (e: Event) => {
+                changeGoodsView(e, productsWrapepr);
+              });
         });
 
         const filterForm = document.querySelector('.filter-form');

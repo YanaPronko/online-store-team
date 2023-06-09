@@ -54,7 +54,7 @@ const deletePromo = (e: Event) => {
   } else {
     removeItemFromStorage("codes");
   }
-   renderCart();
+  renderCart();
 }
 
 export const renderAppliedCodes = () => {
