@@ -80,12 +80,14 @@ body {
 	scroll-behavior: smooth;
 	background: $color-primary-light;
 }
+
 body::-webkit-scrollbar {
 	width: 8px;
   border-radius: 5px;
   background-color: $color-background-secondary;
   cursor: pointer;
 }
+
 body::-webkit-scrollbar-thumb {
 	background-color: $color-primary;
   border-radius: 8px;
@@ -117,17 +119,20 @@ body::-webkit-scrollbar-thumb {
     padding: 0 10px;
   }
 }
+
 .wrapper {
 	display: flex;
 	justify-content: center;
 	width: 100%;
 	padding: 30px 0;
 }
+
 .link {
 	@extend %transition;
 	@include font(2.5rem, 120%);
 	color: $color-primary-light;
 }
+
 .title {
   @include font(4rem, 140%, 700);
   color: $color-primary-light;
@@ -135,9 +140,10 @@ body::-webkit-scrollbar-thumb {
   text-align: center;
 	letter-spacing: 0.1rem;
 	@include min-media-desktop {
-		 @include font(7rem, 140%, 700);
+		@include font(7rem, 140%, 700);
 	}
 }
+
 .btn {
 	@extend %transition;
 	border-radius: 8px;
@@ -155,6 +161,7 @@ body::-webkit-scrollbar-thumb {
 .ico {
 	cursor: pointer;
 }
+
 .hidden {
 	display: none;
 }

@@ -24,9 +24,11 @@
     }
   }
 }
+
 .title {
   flex-grow: 0;
 }
+
 .search-field {
   &__input {
   @include font($size: 1.6rem, $height: 130%);
@@ -55,6 +57,7 @@
     color: $color-primary-dark;
   }
 }
+
 .cart__wrapper {
   display: flex;
   justify-content: space-around;
@@ -82,7 +85,6 @@
     background: $color-primary-additional;
     color: $color-primary-light;
   }
-
   &__link {
     @include font(2rem, 120%);
     display: flex;

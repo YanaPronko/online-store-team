@@ -223,7 +223,7 @@ function createCartFooter(sum: number, quantity: number): string {
   const pagOptions = parseStorage("pagination");
   const rows = pagOptions[0].rows;
   const page = pagOptions[0].page;
-   return `
+    return `
     <footer class="cart-footer flex_col">
       <div class="cart-footer__summary grid">
       <div class="cart-footer__limits">

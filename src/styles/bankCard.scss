@@ -50,6 +50,7 @@
     height: 3rem;
   }
 }
+
 .input {
   border-radius: 3px;
   &__code,
@@ -77,6 +78,7 @@
     text-align: center;
   }
 }
+
 .cvv-label {
   position: absolute;
   right: 6rem;
@@ -84,12 +86,14 @@
   width: 10rem;
   text-align: center;
 }
+
 .date__wrap {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 0 3rem 0;
 }
+
 .slash {
   @include font(3rem, 110%, 400);
   color: lighten($color-primary, 30%);

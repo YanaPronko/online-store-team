@@ -195,7 +195,7 @@ function appendBrends() {
   }
 }
 
-export function renderCatalog(/* params? : string */): void {
+export function renderCatalog(): void {
 
     const mainContent = document.querySelector('.main-content .container')
 

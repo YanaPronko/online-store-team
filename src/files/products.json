@@ -11,8 +11,8 @@
         "brand": "Skill Bike",
         "category": "велосипед",
         "latinCategory": "bike",
-        "thumbnail": "../assets/images/list/main/1.jpg",
-        "images": ["../assets/images/list/mini/1.1.jpg", "../assets/images/list/mini/1.2.jpg"]
+        "thumbnail": "./assets/images/list/main/1.jpg",
+        "images": ["./assets/images/list/mini/1.1.jpg", "./assets/images/list/mini/1.2.jpg"]
       },
       {
         "id": 1,

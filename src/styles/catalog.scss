@@ -18,6 +18,7 @@
   align-items: center;
   gap: 5px;
 }
+
 .sort__icon {
   span {
     color: $color-text;
@@ -38,6 +39,7 @@
   row-gap: 25px;
   column-gap: 2%;
 }
+
 .goods__wrapper[data-temp="list"] {
   .good {
     &__card {
@@ -52,7 +54,7 @@
       display: block;
       max-width: 50%;
     }
-     &__rating {
+    &__rating {
       flex: 1 1 auto;
     }
     &__footer {
@@ -62,6 +64,7 @@
     }
   }
 }
+
 .good {
   &__card {
     width: 23%;
@@ -112,6 +115,7 @@
       color: $color-primary-dark;
     }
 }
+
 .add-btn {
   width: 150px;
   height: 50px;
