@@ -50,7 +50,7 @@ export function linkHandler (e:Event) {
   if(e.currentTarget && id !== null )
   TARGET_ID = +id
   urlRoute(e);
- }
+}
 
 const urlRoute = (event:Event) => {
   event  = event || window.event;
