@@ -1,0 +1,38 @@
+import { isQueryParamsExist } from "./queryParams";
+import { filterGoods } from "./goodsFilter";
+import { createProductCart, isProductInStorage, PRODUCTS } from "../containers/catalog/catalog"
+import { linkHandler } from "./router";
+
+
+export const renderProducts = () => {
+  const productsWrapepr = document.querySelector('.goods__wrapper');
+
+  const queryParams = isQueryParamsExist();
+  if (queryParams) {
+    const arrayForRender = filterGoods(queryParams);  
+    if (arrayForRender && productsWrapepr) {
+      productsWrapepr.innerHTML = '';
+      arrayForRender.forEach((product) => {
+        if (productsWrapepr) {
+          const productCart = isProductInStorage(product.id) ? createProductCart(product, 'Удалить из корзины')
+            : createProductCart(product, 'Добавить в корзину');
+          if (productsWrapepr) {
+            productsWrapepr.innerHTML += productCart;
+            
+          }
+
+        }
+      });
+      document.querySelectorAll('.rout-link').forEach(element => {
+        element.addEventListener('click', linkHandler )
+      });
+    }
+  } else {
+    Object.values(PRODUCTS).forEach((product) => {
+      const productCart = isProductInStorage(product.id)
+        ? createProductCart(product, 'Удалить из корзины')
+        : createProductCart(product, 'Добавить в корзину');
+      if (productsWrapepr) productsWrapepr.innerHTML += productCart;
+    });
+  }
+}
